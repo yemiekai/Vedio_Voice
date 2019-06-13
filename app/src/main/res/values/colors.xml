@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="transparent_background">#00000000</color>
+    <color name="gray">#c2c2c2</color>
+    <color name="gray1">#faebce</color>
+    <color name="gray2">#ffffff</color>
+    <color name="Black">#FF000000</color>
+    <color name="White">#FFFFFFFF</color>
+    <color name="Orange">#FFFF831C</color>
+    <color name="Red">#FF0000</color>
+    <color name="Blue">#0000aa</color>
+    <color name="Green">#7bf16e</color>
+    <color name="DarkBlue">#00008B</color>
+    <color name="LightSteelBlue">#B0C4DE</color>
+    <color name="other">#024079</color>
+    <color name="result_points">#c000ff00</color>
+
+
+    <color name="titleBlue">#00d2f2</color>
+    <color name="grey">#a6a7a7</color>
+    <color name="white">#fafafa</color>
+
+    <color name="text_color_enable">#8c8c8c</color>
+    <color name="parameterSettingTextColor">#848484</color>
+</resources>

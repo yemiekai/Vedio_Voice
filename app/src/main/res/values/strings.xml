@@ -1,0 +1,41 @@
+<resources>
+    <!-- 主菜单 -->
+    <string name="app_name">602实验室安防程序</string>
+    <string name="bt_voice">语音\n识别</string>
+    <string name="bt_video">人证\n对比</string>
+    <string name="text_video">人证对比</string>
+    <string name="time">时间</string>
+
+    <!--应用退出提示-->
+    <string name="exit_warning"> 退出提醒</string>
+    <string name="exit_isexit"> 是否退出程序 ?</string>
+
+    <string name="drawer_open">打开</string>
+    <string name="drawer_close">关闭</string>
+
+    <string name="save">保存</string>
+    <string name="re_print">重打印</string>
+
+    <string name="bn_confirm">确认</string>
+    <string name="bn_cancel">取消</string>
+
+    <string name="bn_yes">确认</string>
+    <string name="bn_no">取消</string>
+
+
+    <!--其它-->
+    <drawable name="clr_normal_0">#b6b6b6</drawable>
+    <drawable name="clr_normal_1">#ff6501</drawable>
+    <drawable name="clr_pressed_1">#a44100</drawable>
+    <drawable name="clr_normal_2">#31ab02</drawable>
+    <drawable name="clr_pressed_2">#185401</drawable>
+    <drawable name="clr_normal_3">#c29201</drawable>
+    <drawable name="clr_pressed_3">#7b5d02</drawable>
+    <drawable name="clr_normal_4">#00b793</drawable>
+    <drawable name="clr_pressed_4">#006853</drawable>
+    <drawable name="clr_normal_5">#00bfff</drawable>
+    <drawable name="clr_pressed_5">#0014a7</drawable>
+    <drawable name="clr_normal_6">#d900ff</drawable>
+    <drawable name="clr_pressed_6">#9802b3</drawable>
+    <string name="title_activity_basic">BasicActivity</string>
+</resources>
