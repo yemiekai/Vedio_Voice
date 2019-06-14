@@ -42,7 +42,7 @@ public class MainActivity extends BasicActivity {
         Button bn_voice = findViewById(R.id.bn_voice);
         Button bn_video = findViewById(R.id.bn_video);
 
-
+        // 语音识别
         bn_voice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +50,7 @@ public class MainActivity extends BasicActivity {
             }
         });
 
+        // 人证对比
         bn_video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

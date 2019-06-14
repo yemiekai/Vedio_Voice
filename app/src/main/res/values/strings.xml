@@ -38,4 +38,8 @@
     <drawable name="clr_normal_6">#d900ff</drawable>
     <drawable name="clr_pressed_6">#9802b3</drawable>
     <string name="title_activity_basic">BasicActivity</string>
+
+    <!--人证对比页-->
+    <string name="capture">拍摄</string>
+
 </resources>
