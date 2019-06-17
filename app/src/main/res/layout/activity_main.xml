@@ -15,7 +15,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/Blue1">
+        android:background="@color/Blue1"
+        android:focusable="false">
 
         <TextView
             android:id="@+id/main_title"
@@ -27,7 +28,8 @@
             android:textColor="@color/gray1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:focusable="false" />
 
         <TextView
             android:id="@+id/main_date"
@@ -39,7 +41,8 @@
             android:textColor="@color/gray1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:focusable="false" />
 
         <TextView
             android:id="@+id/main_time"
@@ -52,29 +55,38 @@
             android:layout_marginEnd="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/main_date"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:focusable="false" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <FrameLayout
+    <VideoView
         android:id="@+id/main_video"
-        android:layout_width="560dp"
-        android:layout_height="315dp"
+        android:layout_width="700dp"
+        android:layout_height="500dp"
+        android:maxWidth="700dp"
+        android:height="500dp"
         android:layout_marginStart="70dp"
         android:layout_marginTop="20dp"
+        android:focusable="false"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/main_image"
         app:layout_constraintTop_toBottomOf="@+id/main_layout1"
+        app:layout_constraintBottom_toTopOf="@+id/main_table_row"
+
         />
 
-    <FrameLayout
+    <ImageView
         android:id="@+id/main_image"
-        android:layout_width="230dp"
-        android:layout_height="316dp"
+        android:layout_width="350dp"
+        android:layout_height="500dp"
         android:layout_marginEnd="70dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
+        android:focusable="false"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_layout1" />
 
     <TableRow
+        android:id="@+id/main_table_row"
         android:layout_width="match_parent"
         android:layout_height="80dp"
 
@@ -95,7 +107,7 @@
             android:background="@drawable/bn_selector8"
             android:contentDescription="@string/main_bt_tv"
             android:scaleType="centerInside"
-            android:src="@drawable/tv" />
+            android:src="@drawable/tv"/>
 
         <ImageButton
             android:id="@+id/main_bn_video"
