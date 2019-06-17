@@ -87,9 +87,7 @@ public class MainActivity extends BasicActivity {
         // String video_path = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-33-30.mp4";
         // Uri uri = Uri.parse(video_path);  // 将路径转换成uri
 
-        // /mnt/sda/sda1/video1.mp4
-
-        // 从sd卡播放视频
+        // 从u盘播放视频, u盘挂载地址为: /mnt/sda/sda1
         File file = new File("/mnt/sda/sda1", "video1.mp4");
         String video_path = file.getPath();
         Uri uri = Uri.parse(file.getPath());  // 将路径转换成uri
@@ -124,7 +122,7 @@ public class MainActivity extends BasicActivity {
                 while (true) {
                     // 动画效果
                     AnimationSet set = new AnimationSet(true);
-                    ScaleAnimation scale = new ScaleAnimation(0.9f, 1.0f, 0.9f, 1.0f ,Animation.RELATIVE_TO_SELF, 0.5f , Animation.RELATIVE_TO_SELF, 0.5f);
+                    ScaleAnimation scale = new ScaleAnimation(0.92f, 1.0f, 0.92f, 1.0f ,Animation.RELATIVE_TO_SELF, 0.5f , Animation.RELATIVE_TO_SELF, 0.5f);
                     scale.setDuration(1500);
                     set.addAnimation(scale);
                     image.setAnimation(set);
