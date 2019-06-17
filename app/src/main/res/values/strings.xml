@@ -4,6 +4,7 @@
     <string name="bt_voice">语音\n识别</string>
     <string name="bt_video">人证\n对比</string>
     <string name="text_video">人证对比</string>
+    <string name="hospital">华南师范大学医院</string>
     <string name="time">时间</string>
 
     <!--应用退出提示-->

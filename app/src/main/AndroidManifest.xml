@@ -32,6 +32,7 @@
         </activity>
 
         <activity android:name="com.yemiekai.vedio_voice.VideoActivity" />
+        <activity android:name="com.yemiekai.vedio_voice.AiActivity" />
     </application>
 
 </manifest>

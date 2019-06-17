@@ -11,39 +11,51 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends BasicActivity {
+public class AiActivity extends BasicActivity {
     Context context;
-    TextView date;
     TextView time;
     Timer timeTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_ai);
 
-        context = MainActivity.this;
-        date = (TextView) findViewById(R.id.main_date);
-        time = (TextView) findViewById(R.id.main_time);
+        context = AiActivity.this;
+        time = (TextView) findViewById(R.id.ai_time);
 
         timeTimer = new Timer();
         timeTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 long sysTime = System.currentTimeMillis();//获取系统时间
-                final CharSequence sysDateStr = DateFormat.format("MM/dd", sysTime);
-                final CharSequence sysDayStr = DateFormat.format("E", sysTime);
-                final CharSequence sysTimeStr = DateFormat.format("HH:mm", sysTime);
+                final CharSequence sysTimeStr = DateFormat.format("yyyy/MM/dd HH:mm:ss", sysTime);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         time.setText(sysTimeStr);
-                        String date_day = sysDateStr+"\n"+sysDayStr;
-                        date.setText(date_day);
                     }
                 });
             }
         },0,1000);
 
+        Button bn_voice = findViewById(R.id.ai_bn_voice);
+        Button bn_video = findViewById(R.id.ai_bn_video);
+
+        // 语音识别
+        bn_voice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogPrompt(context,"语音识别","暂未开通");
+            }
+        });
+
+        // 人证对比
+        bn_video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AiActivity.this, VideoActivity.class));
+            }
+        });
     }
 }
