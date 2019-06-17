@@ -6,11 +6,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.Toast;
+import java.text.DateFormat;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 import com.yemiekai.vedio_voice.utils.ShowCamera;
 
@@ -60,5 +61,10 @@ public class VideoActivity extends Activity {
         cameraObject.takePicture(null, null, capturedIt);
     }
 
+    private void test(){
+        Date date = new Date();
+        DateFormat df1 = DateFormat.getDateInstance();
+        DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    }
 
 }

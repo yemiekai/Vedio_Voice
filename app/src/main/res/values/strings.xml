@@ -7,6 +7,13 @@
     <string name="hospital">华南师范大学医院</string>
     <string name="time">时间</string>
 
+    <string name="main_bt_tv">电视直播</string>
+    <string name="main_bt_video">视频直播</string>
+    <string name="main_bt_navigation">科室导航</string>
+    <string name="main_bt_doctor">医生信息</string>
+    <string name="main_bt_service">医院服务</string>
+    <string name="main_bt_introduce">y医院介绍</string>
+
     <!--应用退出提示-->
     <string name="exit_warning"> 退出提醒</string>
     <string name="exit_isexit"> 是否退出程序 ?</string>

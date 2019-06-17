@@ -5,9 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background1"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_layout1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -51,57 +53,104 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/main_date"
             app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--ConstraintLayout
-        android:id="@+id/main_title_layout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/Blue1"
-        android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/main_title"
+    <FrameLayout
+        android:id="@+id/main_video"
+        android:layout_width="560dp"
+        android:layout_height="315dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_layout1"
+        />
+
+    <FrameLayout
+        android:id="@+id/main_image"
+        android:layout_width="230dp"
+        android:layout_height="316dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_layout1" />
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp">
+
+        <ImageButton
+            android:id="@+id/main_bn_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/hospital"
-            android:textSize="80pt"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            />
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bn_selector8"
+            android:contentDescription="@string/main_bt_tv"
+            android:scaleType="centerInside"
+            android:src="@drawable/tv" />
 
+        <ImageButton
+            android:id="@+id/main_bn_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bn_selector8"
+            android:contentDescription="@string/main_bt_video"
+            android:scaleType="centerInside"
+            android:src="@drawable/video" />
 
-    </ConstraintLayout-->
+        <ImageButton
+            android:id="@+id/main_bn_navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bn_selector8"
+            android:contentDescription="@string/main_bt_navigation"
+            android:scaleType="centerInside"
+            android:src="@drawable/navigation" />
 
+        <ImageButton
+            android:id="@+id/main_bn_doctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bn_selector8"
+            android:contentDescription="@string/main_bt_doctor"
+            android:scaleType="centerInside"
+            android:src="@drawable/doctor" />
 
-    <!--Button
-        android:id="@+id/bn_voice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bn_selector5"
-        android:scaleType="centerInside"
-        android:text="@string/bt_voice"
-        android:textSize="100sp"
-        android:textColor="@color/gray1"
-        app:layout_constraintCircle="@+id/main_title"
-        app:layout_constraintCircleAngle="220"
-        app:layout_constraintCircleRadius="350dp"/>
+        <ImageButton
+            android:id="@+id/main_bn_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bn_selector8"
+            android:contentDescription="@string/main_bt_service"
+            android:scaleType="centerInside"
+            android:src="@drawable/service" />
 
-    <Button
-        android:id="@+id/bn_video"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bn_selector5"
-        android:scaleType="centerInside"
-        android:text="@string/bt_video"
-        android:textSize="100sp"
-        android:textColor="@color/gray1"
-        app:layout_constraintCircle="@+id/main_title"
-        app:layout_constraintCircleAngle="140"
-        app:layout_constraintCircleRadius="350dp"/-->
+        <ImageButton
+            android:id="@+id/main_bn_introduce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bn_selector8"
+            android:contentDescription="@string/main_bt_introduce"
+            android:scaleType="centerInside"
+            android:src="@drawable/introduce" />
+    </TableRow>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
