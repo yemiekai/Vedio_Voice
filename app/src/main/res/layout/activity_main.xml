@@ -61,7 +61,7 @@
 
     <VideoView
         android:id="@+id/main_video"
-        android:layout_width="700dp"
+        android:layout_width="750dp"
         android:layout_height="500dp"
         android:maxWidth="700dp"
         android:height="500dp"
@@ -69,7 +69,6 @@
         android:layout_marginTop="20dp"
         android:focusable="false"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/main_image"
         app:layout_constraintTop_toBottomOf="@+id/main_layout1"
         app:layout_constraintBottom_toTopOf="@+id/main_table_row"
 
@@ -157,7 +156,6 @@
             android:id="@+id/main_bn_introduce"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:background="@drawable/bn_selector8"
             android:contentDescription="@string/main_bt_introduce"

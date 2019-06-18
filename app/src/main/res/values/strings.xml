@@ -1,10 +1,10 @@
 <resources>
     <!-- 主菜单 -->
-    <string name="app_name">602实验室安防程序</string>
+    <string name="app_name">智慧医疗系统</string>
     <string name="bt_voice">语音\n识别</string>
     <string name="bt_video">人证\n对比</string>
     <string name="text_video">人证对比</string>
-    <string name="hospital">华南师范大学医院</string>
+    <string name="hospital">赣州市人民医院</string>
     <string name="time">时间</string>
 
     <string name="main_bt_tv">电视直播</string>
