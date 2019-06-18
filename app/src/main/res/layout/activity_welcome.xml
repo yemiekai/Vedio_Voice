@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WelcomeActivity"
-    android:id="@+id/welcome_layout"
+    android:id="@+id/welcome1_layout"
     android:background="@drawable/welcome_image">
 
     <VideoView
