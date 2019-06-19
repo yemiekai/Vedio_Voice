@@ -24,12 +24,20 @@
         <activity
             android:name=".BasicActivity"
             android:label="@string/title_activity_basic"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <activity android:name=".MainActivity" />
-        <activity android:name=".VideoActivity" />
-        <activity android:name=".AiActivity" />
-        <activity android:name=".WelcomeActivity">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".VideoActivity"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".AiActivity"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".WelcomeActivity"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
