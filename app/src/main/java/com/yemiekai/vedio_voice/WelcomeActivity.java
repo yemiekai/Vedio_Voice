@@ -1,6 +1,5 @@
 package com.yemiekai.vedio_voice;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
@@ -26,7 +25,7 @@ import java.util.TimerTask;
 import static com.yemiekai.vedio_voice.utils.StringUtils.print;
 
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends Activity {
 
     private Activity context = null;
     private boolean bVideoComplete = false;
@@ -72,7 +71,7 @@ public class WelcomeActivity extends AppCompatActivity {
         if(bVideoComplete){
             Intent intent = new Intent(context, MainActivity.class);
             startActivity(intent);
-            context.finish();
+//            context.finish();
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -103,6 +102,5 @@ public class WelcomeActivity extends AppCompatActivity {
 
         layout2.setBackgroundResource(R.drawable.welcome_image);  // 显示欢迎图片
     }
-
 
 }

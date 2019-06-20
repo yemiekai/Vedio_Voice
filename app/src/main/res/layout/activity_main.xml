@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background1"
     tools:context=".MainActivity">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_layout1"
@@ -67,7 +69,7 @@
         android:height="500dp"
         android:focusable="false"
         android:maxWidth="700dp"
-        app:layout_constraintBottom_toTopOf="@+id/main_table_row"
+        app:layout_constraintBottom_toTopOf="@+id/main_recycler"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_layout1"
 
@@ -83,7 +85,22 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_layout1" />
 
-    <TableRow
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
+    <!--TableRow
         android:id="@+id/main_table_row"
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -160,6 +177,6 @@
             android:contentDescription="@string/main_bt_introduce"
             android:scaleType="centerInside"
             android:src="@drawable/introduce" />
-    </TableRow>
+    </TableRow-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.yemiekai.vedio_voice;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,15 +9,28 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
+import android.widget.Adapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.OrientationHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.yemiekai.vedio_voice.utils.MyRecyclerButton;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,6 +41,11 @@ import java.util.TimerTask;
 // 视频框架 : https://blog.csdn.net/u010181592/article/details/49301703
 // 视频轮播 : https://blog.csdn.net/watts2008/article/details/52710193
 // 图片轮播： https://www.jb51.net/article/101517.htm
+
+// RecyclerView: https://blog.csdn.net/qq_37217804/article/details/80178583
+//               https://www.jianshu.com/p/80083550e9b0
+//               https://blog.csdn.net/qq_34801506/article/details/80538944    (响应按键)
+//               https://www.jianshu.com/p/4f9591291365   (这篇内容太多看不来)
 public class MainActivity extends BasicActivity {
     public final static int MSG_CHANGE_IMAGE             = 1000;       // 切换图片
     public final static int MSG_ZOOM_OUT_IMAGE           = 1001;       // 淡出
@@ -36,9 +55,9 @@ public class MainActivity extends BasicActivity {
     Context context;
     private VideoView video;
     private ImageView image;
-    private ImageButton bt_tv;
+    private RecyclerView recyclerView;
     private int[] imageResIds;
-    private ArrayList<ImageView> imageViewList;
+    private ArrayList<MyRecyclerButton> buttonList = new ArrayList<>();
 
     TextView date;
     TextView time;
@@ -56,9 +75,17 @@ public class MainActivity extends BasicActivity {
         video = (VideoView) findViewById(R.id.main_video);
         image = (ImageView) findViewById(R.id.main_image);
 
-        bt_tv = (ImageButton)findViewById(R.id.main_bn_tv);
-        bt_tv.requestFocus();
+        recyclerView = (RecyclerView) findViewById(R.id.main_recycler);
 
+
+        init_dateTime();   // 刷新时间日期
+        init_video();  // 轮播视频
+        init_pictures();  // 轮播图片
+        init_buttons();  // 可滚动显示的按钮
+    }
+
+    // 刷新时间日期
+    private void init_dateTime(){
         // 时间日期
         timeTimer = new Timer();
         timeTimer.schedule(new TimerTask() {
@@ -78,13 +105,12 @@ public class MainActivity extends BasicActivity {
                 });
             }
         },0,1000);
+    }
 
-        // 轮播图片
-        init_circulate_pictures();
-
+    // 轮播视频
+    private void init_video(){
         // 从网络播放视频
         // String video_path = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-33-30.mp4";
-
         // 从u盘播放视频, u盘挂载地址为: /mnt/sda/sda1; 本机存储空间地址为: /storage/emulated/0
         String video_path = new File("/storage/emulated/0/Movies", "video1.mp4").getPath();
         Uri uri = Uri.parse(video_path);  // 将路径转换成uri
@@ -100,7 +126,8 @@ public class MainActivity extends BasicActivity {
         });
     }
 
-    private void init_circulate_pictures(){
+    // 轮播图片
+    private void init_pictures(){
         imageResIds = new int[]{R.drawable.recycle1, R.drawable.recycle2, R.drawable.recycle3, R.drawable.recycle4};
 
         final Handler handler = new Handler(){
@@ -160,6 +187,29 @@ public class MainActivity extends BasicActivity {
         }).start();
     }
 
+    // 可滚动显示的按钮
+    private void init_buttons(){
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);  // 线性
+        layoutManager.setOrientation(OrientationHelper.HORIZONTAL);  // 横向
+        recyclerView.setLayoutManager(layoutManager);
+
+        // 添加按钮
+        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_tv), R.drawable.tv));
+        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_video), R.drawable.video));
+        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_navigation), R.drawable.navigation));
+        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_doctor), R.drawable.doctor));
+        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_service), R.drawable.service));
+        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_introduce), R.drawable.introduce));
+        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_ai), R.drawable.ai, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, AiActivity.class);
+                startActivity(intent);
+            }
+        }));
+
+        recyclerView.setAdapter(new MyButtonAdapter(context, buttonList));
+    }
 
     /** 创建一个淡出的动画 **/
     public Animation createZoomOutAnim() {
@@ -198,4 +248,53 @@ public class MainActivity extends BasicActivity {
         return set;
     }
 
+    public class MyButtonAdapter extends RecyclerView.Adapter<MyButtonAdapter.ViewHolder> {
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+            ImageButton mButton;
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+                mButton = itemView.findViewById(R.id.main_recycler_button);
+            }
+        }
+
+        //该值仅仅为了传递Activity
+        private Context context;
+        ArrayList<MyRecyclerButton> buttonList;
+
+
+        public MyButtonAdapter(Context context, ArrayList<MyRecyclerButton> buttonList){
+            this.context = context;
+            this.buttonList = buttonList;
+        }
+
+        @Override
+        public @NonNull ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.child_layout,parent,false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            MyRecyclerButton buttonInfo = buttonList.get(position);
+            holder.mButton.setImageResource(buttonInfo.getImageSrcResId());  // 设置按钮图片
+            holder.mButton.setOnClickListener(buttonInfo.getClickListener());  // 设置按钮监听
+
+            if(position==0){
+                holder.mButton.requestFocus();
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return buttonList.size();
+        }
+
+        @Override
+        public long getItemId(int arg0) {
+            return arg0;
+        }
+
+    }
 }
