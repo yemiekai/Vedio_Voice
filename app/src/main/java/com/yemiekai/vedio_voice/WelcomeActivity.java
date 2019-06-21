@@ -4,16 +4,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -21,8 +16,6 @@ import android.widget.VideoView;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
-import static com.yemiekai.vedio_voice.utils.StringUtils.print;
 
 
 public class WelcomeActivity extends Activity {

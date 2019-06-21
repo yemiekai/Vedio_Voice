@@ -13,7 +13,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
-import com.yemiekai.vedio_voice.utils.ShowCamera;
+import com.yemiekai.vedio_voice.utils.views.ShowCamera;
 
 public class VideoActivity extends Activity {
     private Camera cameraObject;
