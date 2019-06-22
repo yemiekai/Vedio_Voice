@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <ImageButton
+        android:id="@+id/layout_doctors_button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sample_doctor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/layout_doctors_button2"/>
+    <TextView
+        android:id="@+id/layout_doctors_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="某医生\n什么什么主任\n什么什么导师"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintLeft_toLeftOf="@+id/layout_doctors_button1"
+        app:layout_constraintRight_toRightOf="@+id/layout_doctors_button1"
+        app:layout_constraintBottom_toBottomOf="@+id/layout_doctors_button1"/>
+
+    <ImageButton
+        android:id="@+id/layout_doctors_button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sample_doctor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/layout_doctors_button1"
+        app:layout_constraintRight_toLeftOf="@id/layout_doctors_button3"/>
+    <TextView
+        android:id="@+id/layout_doctors_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="某医生\n什么什么主任\n什么什么导师"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintLeft_toLeftOf="@+id/layout_doctors_button2"
+        app:layout_constraintRight_toRightOf="@+id/layout_doctors_button2"
+        app:layout_constraintBottom_toBottomOf="@+id/layout_doctors_button2"/>
+
+    <ImageButton
+        android:id="@+id/layout_doctors_button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sample_doctor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/layout_doctors_button2"
+        app:layout_constraintRight_toLeftOf="@id/layout_doctors_button4"/>
+    <TextView
+        android:id="@+id/layout_doctors_text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="某医生\n什么什么主任\n什么什么导师"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintLeft_toLeftOf="@+id/layout_doctors_button3"
+        app:layout_constraintRight_toRightOf="@+id/layout_doctors_button3"
+        app:layout_constraintBottom_toBottomOf="@+id/layout_doctors_button3"/>
+
+    <ImageButton
+        android:id="@+id/layout_doctors_button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sample_doctor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/layout_doctors_button3"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <TextView
+        android:id="@+id/layout_doctors_text4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="某医生\n什么什么主任\n什么什么导师"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintLeft_toLeftOf="@+id/layout_doctors_button4"
+        app:layout_constraintRight_toRightOf="@+id/layout_doctors_button4"
+        app:layout_constraintBottom_toBottomOf="@+id/layout_doctors_button4"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

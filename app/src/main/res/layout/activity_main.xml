@@ -97,9 +97,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
-
-
     </androidx.recyclerview.widget.RecyclerView>
+
     <!--TableRow
         android:id="@+id/main_table_row"
         android:layout_width="match_parent"

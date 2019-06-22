@@ -275,7 +275,7 @@ public class MainActivity extends BasicActivity {
 
         @Override
         public @NonNull ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.child_layout,parent,false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_buttons,parent,false);
             return new ViewHolder(view);
         }
 
