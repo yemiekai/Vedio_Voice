@@ -44,6 +44,9 @@
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
         </activity>
+        <activity
+            android:name=".DoctorActivity"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

@@ -15,7 +15,7 @@
     <string name="main_bt_navigation">科室导航</string>
     <string name="main_bt_doctor">医生信息</string>
     <string name="main_bt_service">医院服务</string>
-    <string name="main_bt_introduce">y医院介绍</string>
+    <string name="main_bt_introduce">医院介绍</string>
     <string name="main_bt_ai">人工智能</string>
 
     <!--应用退出提示-->
