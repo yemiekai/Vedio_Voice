@@ -254,6 +254,10 @@ public class MainActivity extends BasicActivity {
 
     public class MyButtonAdapter extends RecyclerView.Adapter<MyButtonAdapter.ViewHolder> {
 
+        //该值仅仅为了传递Activity
+        private Context context;
+        ArrayList<MyRecyclerButton> buttonList;
+
         class ViewHolder extends RecyclerView.ViewHolder {
             ImageButton mButton;
 
@@ -262,11 +266,6 @@ public class MainActivity extends BasicActivity {
                 mButton = itemView.findViewById(R.id.main_recycler_button);
             }
         }
-
-        //该值仅仅为了传递Activity
-        private Context context;
-        ArrayList<MyRecyclerButton> buttonList;
-
 
         public MyButtonAdapter(Context context, ArrayList<MyRecyclerButton> buttonList){
             this.context = context;

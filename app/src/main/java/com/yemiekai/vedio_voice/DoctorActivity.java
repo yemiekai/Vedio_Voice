@@ -9,6 +9,8 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yemiekai.vedio_voice.fragments.DoctorListFragment;
+
 /**
  * (1)ExpandableListView
  *
@@ -47,10 +49,10 @@ public class DoctorActivity extends Activity {
         setContentView(R.layout.activity_doctor);
         listView = (ExpandableListView)findViewById(R.id.doctor_category_list);
         listView.setAdapter(new MyExpandableAdapter(mGroups, mChilds));
-        listView.setOnChildClickListener(getChileClickListener());
+        listView.setOnChildClickListener(getChildClickListener());
     }
 
-    private ExpandableListView.OnChildClickListener getChileClickListener(){
+    private ExpandableListView.OnChildClickListener getChildClickListener(){
         return new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View view,
@@ -58,7 +60,23 @@ public class DoctorActivity extends Activity {
                 // TODO Auto-generated method stub
                 Toast.makeText(DoctorActivity.this,
                         childPosition + "---ccc===" + groupPosition,
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
+
+                if(groupPosition==0 && childPosition==0){
+
+                    // 创建Bundle，准备向Fragment传入参数, 传入点了哪个科室
+                    Bundle arguments = new Bundle();
+                    arguments.putInt(DoctorListFragment.FIRST_CATEGORY_INDEX, groupPosition);
+                    arguments.putInt(DoctorListFragment.SECOND_CATEGORY_INDEX, childPosition);
+
+                    DoctorListFragment fragment = new DoctorListFragment();
+                    fragment.setArguments(arguments);  // 向Fragment传入参数
+
+                    // 使用fragment替换doctor_detail_container容器当前显示的Fragment
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.doctor_detail_container, fragment)
+                            .commit();  // ①
+                }
                 return false;
             }
         };
