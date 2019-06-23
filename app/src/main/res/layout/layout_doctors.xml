@@ -18,11 +18,11 @@
         app:layout_constraintRight_toLeftOf="@id/layout_doctors_button2"/>
     <TextView
         android:id="@+id/layout_doctors_text1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="某医生\n什么什么主任\n什么什么导师"
+        android:background="@drawable/bg10"
         android:textAlignment="center"
-        android:layout_marginBottom="20dp"
         app:layout_constraintLeft_toLeftOf="@+id/layout_doctors_button1"
         app:layout_constraintRight_toRightOf="@+id/layout_doctors_button1"
         app:layout_constraintBottom_toBottomOf="@+id/layout_doctors_button1"/>
@@ -38,11 +38,10 @@
         app:layout_constraintRight_toLeftOf="@id/layout_doctors_button3"/>
     <TextView
         android:id="@+id/layout_doctors_text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="某医生\n什么什么主任\n什么什么导师"
         android:textAlignment="center"
-        android:layout_marginBottom="20dp"
         app:layout_constraintLeft_toLeftOf="@+id/layout_doctors_button2"
         app:layout_constraintRight_toRightOf="@+id/layout_doctors_button2"
         app:layout_constraintBottom_toBottomOf="@+id/layout_doctors_button2"/>
@@ -58,11 +57,10 @@
         app:layout_constraintRight_toLeftOf="@id/layout_doctors_button4"/>
     <TextView
         android:id="@+id/layout_doctors_text3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="某医生\n什么什么主任\n什么什么导师"
         android:textAlignment="center"
-        android:layout_marginBottom="20dp"
         app:layout_constraintLeft_toLeftOf="@+id/layout_doctors_button3"
         app:layout_constraintRight_toRightOf="@+id/layout_doctors_button3"
         app:layout_constraintBottom_toBottomOf="@+id/layout_doctors_button3"/>
@@ -78,11 +76,10 @@
         app:layout_constraintRight_toRightOf="parent"/>
     <TextView
         android:id="@+id/layout_doctors_text4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="某医生\n什么什么主任\n什么什么导师"
         android:textAlignment="center"
-        android:layout_marginBottom="10dp"
         app:layout_constraintLeft_toLeftOf="@+id/layout_doctors_button4"
         app:layout_constraintRight_toRightOf="@+id/layout_doctors_button4"
         app:layout_constraintBottom_toBottomOf="@+id/layout_doctors_button4"/>

@@ -3,6 +3,7 @@ package com.yemiekai.vedio_voice.fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,17 @@ import com.yemiekai.vedio_voice.R;
 
 import java.util.ArrayList;
 
+/**
+ * 这个Fragment的布局是一个RecyclerView, 一个垂直滑动的列表, 每一行显示4个医生
+ * */
 public class DoctorListFragment extends Fragment
 {
 	public static final String FIRST_CATEGORY_INDEX = "first_category_index";  // 一级菜单索引(名医馆:0 内科:1 外科:1 ...)
 	public static final String SECOND_CATEGORY_INDEX = "second_category_index";  // 二级菜单索引(心血管内科:0 内分泌科:1 ...)
 
+	private int first_category_index;  // 传进来的一级菜单索引号
+	private int second_category_index;  // 传进来的二级菜单索引号
+	private boolean isIndexValid = false;  // 是否传来了科室索引, 或者科室索引是否有效
 	RecyclerView recyclerView;
 
 	@Override
@@ -30,11 +37,21 @@ public class DoctorListFragment extends Fragment
 	{
 		super.onCreate(savedInstanceState);
 
-		// 如果启动该Fragment时包含了ITEM_ID参数
 		if (getArguments().containsKey(FIRST_CATEGORY_INDEX) && getArguments().containsKey(SECOND_CATEGORY_INDEX))
 		{
-			int first = getArguments().getInt(FIRST_CATEGORY_INDEX);
-			int second = getArguments().getInt(SECOND_CATEGORY_INDEX);
+			// 得到科室索引, 根据这个找到医生并且显示
+			isIndexValid = true;
+			first_category_index = getArguments().getInt(FIRST_CATEGORY_INDEX);
+			second_category_index = getArguments().getInt(SECOND_CATEGORY_INDEX);
+			/****
+			 *
+			 *
+			 * todo: 根据科室索引找到该科室所有医生的信息, 以便在adapter里面设置显示各个医生信息, 多少行
+			 *       (暂定每行4个医生, 见layout_doctors.xml)
+			 *       以及每个医生的信息
+			 *
+			 *
+			 */
 		}
 	}
 
@@ -45,22 +62,18 @@ public class DoctorListFragment extends Fragment
 		View rootView = inflater.inflate(R.layout.fragment_doctors_list, container, false);
 		recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_doctors_recycler);
 
-		init_doctor_view();
+		// 设置布局管理器
+		LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());  // 线性
+		layoutManager.setOrientation(RecyclerView.VERTICAL);  // 纵向
+		recyclerView.setLayoutManager(layoutManager);
+
+		// 设置适配器
+		recyclerView.setAdapter(new MyDoctorAdapter());
 
 		return rootView;
 	}
 
-	private void init_doctor_view(){
-		LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());  // 线性
-		layoutManager.setOrientation(RecyclerView.VERTICAL);  // 纵向
-		recyclerView.setLayoutManager(layoutManager);
-		recyclerView.setAdapter(new MyDoctorAdapter());
-	}
-
 	public class MyDoctorAdapter extends RecyclerView.Adapter<MyDoctorAdapter.ViewHolder> {
-
-		ArrayList<String> buttonList;
-
 		class ViewHolder extends RecyclerView.ViewHolder {
 			ImageButton mButton1;
 			ImageButton mButton2;
@@ -86,6 +99,7 @@ public class DoctorListFragment extends Fragment
 		}
 
 		public MyDoctorAdapter(){
+			// 构造函数, 暂时没有传参
 		}
 
 		@Override
@@ -97,15 +111,28 @@ public class DoctorListFragment extends Fragment
 		@Override
 		public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+			// todo:
+			//      根据position找到对应医生索引的方法：(position就是当前行数)
+			//      doctor index1 = position * 4 + 0
+			//      doctor index2 = position * 4 + 1
+			//      doctor index3 = position * 4 + 2
+			//      doctor index4 = position * 4 + 3
 			holder.mButton1.setImageResource(R.drawable.sample_doctor);  // 设置按钮图片
 			holder.mButton2.setImageResource(R.drawable.sample_doctor);  // 设置按钮图片
 			holder.mButton3.setImageResource(R.drawable.sample_doctor);  // 设置按钮图片
 			holder.mButton4.setImageResource(R.drawable.sample_doctor);  // 设置按钮图片
+
+			holder.mTextView1.setText("什么医生\n什么职位\n什么职称\n");  // 设置文字
+			holder.mTextView2.setText("什么医生\n什么职位\n什么职称\n");  // 设置文字
+			holder.mTextView3.setText("什么医生\n什么职位\n什么职称\n");  // 设置文字
+			holder.mTextView4.setText("什么医生\n什么职位\n什么职称\n");  // 设置文字
+
+			// todo:
+			//      设置每个按钮的点击响应时间, 切换fragment, 显示医生详细信息
+			//      切换时要传入当前fragment的科室索引, 在客户按下"返回"按钮时要切换回现在的fragment
+			//      (因为切换了fragment后, 现在的fragment好像被destroy了)
 //			holder.mButton.setOnClickListener(buttonInfo.getClickListener());  // 设置按钮监听
-//
-//			if(position==0){
-//				holder.mButton.requestFocus();
-//			}
+
 		}
 
 		@Override
@@ -114,15 +141,8 @@ public class DoctorListFragment extends Fragment
 			 *
 			 *
 			 *
-			 *
-			 *
-			 *
-			 *
-			 *
 			 * todo 这是设置列表的长度。  列表一行有4个医生
-			 *
-			 *
-			 *
+			 *		到时候根据多少医生, 返回值为 (医生总数/4)
 			 *
 			 *
 			 * */
@@ -135,37 +155,5 @@ public class DoctorListFragment extends Fragment
 		}
 
 	}
-//	public static final String ITEM_ID = "item_id";
-//	// 保存该Fragment显示的Book对象
-//	BookContent.Book book;
-//	@Override
-//	public void onCreate(Bundle savedInstanceState)
-//	{
-//		super.onCreate(savedInstanceState);
-//		// 如果启动该Fragment时包含了ITEM_ID参数
-//		if (getArguments().containsKey(ITEM_ID))
-//		{
-//			book = BookContent.ITEM_MAP.get(getArguments()
-//				.getInt(ITEM_ID)); // ①
-//		}
-//	}
-//	// 重写该方法，该方法返回的View将作为Fragment显示的组件
-//	@Override
-//	public View onCreateView(LayoutInflater inflater
-//		, ViewGroup container, Bundle savedInstanceState)
-//	{
-//		// 加载/res/layout/目录下的fragment_book_detail.xml布局文件
-//		View rootView = inflater.inflate(R.layout.fragment_book_detail,
-//				container, false);
-//		if (book != null)
-//		{
-//			// 让book_title文本框显示book对象的title属性
-//			((TextView) rootView.findViewById(R.id.book_title))
-//				.setText(book.title);
-//			// 让book_desc文本框显示book对象的desc属性
-//			((TextView) rootView.findViewById(R.id.book_desc))
-//				.setText(book.desc);
-//		}
-//		return rootView;
-//	}
+
 }

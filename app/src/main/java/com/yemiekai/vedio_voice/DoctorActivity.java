@@ -25,7 +25,7 @@ import com.yemiekai.vedio_voice.fragments.DoctorListFragment;
  */
 
 public class DoctorActivity extends Activity {
-    private ExpandableListView listView;
+    private ExpandableListView listView;  // 界面左边的科室列表
     private String[] mGroups = {"名医馆", "内科", "外科", "医技科室"};
     private String[][] mChilds = {
             {"心血管内一科", "内分泌科", "消化内科", "神经内科", "全科医学科", "儿科", "中医科",
@@ -47,42 +47,37 @@ public class DoctorActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor);
-        listView = (ExpandableListView)findViewById(R.id.doctor_category_list);
+        listView = (ExpandableListView)findViewById(R.id.doctor_category_list);  // 界面左边的科室列表
         listView.setAdapter(new MyExpandableAdapter(mGroups, mChilds));
         listView.setOnChildClickListener(getChildClickListener());
     }
 
+    // 点击了列表中某个科室
     private ExpandableListView.OnChildClickListener getChildClickListener(){
         return new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View view,
                                         int groupPosition, int childPosition, long id) {
-                // TODO Auto-generated method stub
-                Toast.makeText(DoctorActivity.this,
-                        childPosition + "---ccc===" + groupPosition,
-                        Toast.LENGTH_SHORT).show();
 
-                if(groupPosition==0 && childPosition==0){
+                // 创建Bundle，准备向Fragment传入参数, 传入点了哪个科室
+                Bundle arguments = new Bundle();
+                arguments.putInt(DoctorListFragment.FIRST_CATEGORY_INDEX, groupPosition);
+                arguments.putInt(DoctorListFragment.SECOND_CATEGORY_INDEX, childPosition);
 
-                    // 创建Bundle，准备向Fragment传入参数, 传入点了哪个科室
-                    Bundle arguments = new Bundle();
-                    arguments.putInt(DoctorListFragment.FIRST_CATEGORY_INDEX, groupPosition);
-                    arguments.putInt(DoctorListFragment.SECOND_CATEGORY_INDEX, childPosition);
+                /**经过测试, 这里new了Fragment并启动后, 原来的会被销毁, 所以可以不断地new, 不会增加内存*/
+                DoctorListFragment fragment = new DoctorListFragment();
+                fragment.setArguments(arguments);  // 向Fragment传入参数
 
-                    DoctorListFragment fragment = new DoctorListFragment();
-                    fragment.setArguments(arguments);  // 向Fragment传入参数
-
-                    // 使用fragment替换doctor_detail_container容器当前显示的Fragment
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.doctor_detail_container, fragment)
-                            .commit();  // ①
-                }
+                // 使用fragment替换doctor_detail_container容器当前显示的Fragment
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.doctor_detail_container, fragment)
+                        .commit();
                 return false;
             }
         };
     }
 
-
+    // 科室列表的适配器
     class MyExpandableAdapter extends BaseExpandableListAdapter{
         private String[] groups = {"名医馆", "内科", "外科", "医技科室"};
         private String[][] childs = {
@@ -104,14 +99,14 @@ public class DoctorActivity extends Activity {
         public MyExpandableAdapter(){
 
         }
+
         public MyExpandableAdapter(String[] groups, String[][] childs){
             this.groups = groups;
             this.childs = childs;
         }
 
         @Override
-        public View getGroupView(int index, boolean arg1, View view,
-                                 ViewGroup parent) {
+        public View getGroupView(int index, boolean arg1, View view, ViewGroup parent) {
             if(view == null){
                 view = getLayoutInflater().inflate(R.layout.layout_doctor_category_first, parent, false);
             }
@@ -121,8 +116,7 @@ public class DoctorActivity extends Activity {
         }
 
         @Override
-        public View getChildView(int index1, int index2, boolean arg2,
-                                 View view, ViewGroup parent) {
+        public View getChildView(int index1, int index2, boolean arg2, View view, ViewGroup parent) {
             if(view == null){
                 view = getLayoutInflater().inflate(R.layout.layout_doctor_category_second, parent, false);
             }
