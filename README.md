@@ -68,6 +68,8 @@
 ```
 Bundle bundle=new Bundle();
 bundle.setClassLoader(TestData_p.class.getClassLoader());
+bundle.putParcelable("TAG", new TestData_p());
 ```
-参考：https://stackoverflow.com/questions/18126249/badparcelableexception-classnotfoundexception-when-unmarshalling-myclass-wh
+参考：https://stackoverflow.com/questions/18126249/badparcelableexception-classnotfoundexception-when-unmarshalling-myclass-wh;
 https://blog.csdn.net/Bettarwang/article/details/45315091
+
