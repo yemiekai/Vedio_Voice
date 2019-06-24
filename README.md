@@ -5,7 +5,7 @@
 
 
 ## 遇到的坑：
-### 1. 发送Messenge时，将实现了Parcelable接口的数据放到Bundle中, 运行程序出错
+### 1. 发送Messenge时，用Bundle传递实现了Parcelable接口的数据, 运行程序出错
 ```
 2019-06-24 21:29:07.414 4074-4074/com.yemiekai.vedio_voice E/Parcel: Class not found when unmarshalling: com.yemiekai.vedio_voice.utils.datas.TestData_p
     java.lang.ClassNotFoundException: com.yemiekai.vedio_voice.utils.datas.TestData_p
