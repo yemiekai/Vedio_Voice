@@ -43,7 +43,7 @@ public class DoctorListFragment extends Fragment
 			isIndexValid = true;
 			first_category_index = getArguments().getInt(FIRST_CATEGORY_INDEX);
 			second_category_index = getArguments().getInt(SECOND_CATEGORY_INDEX);
-			/****
+			/*
 			 *
 			 *
 			 * todo: 根据科室索引找到该科室所有医生的信息, 以便在adapter里面设置显示各个医生信息, 多少行
@@ -122,10 +122,10 @@ public class DoctorListFragment extends Fragment
 			holder.mButton3.setImageResource(R.drawable.sample_doctor);  // 设置按钮图片
 			holder.mButton4.setImageResource(R.drawable.sample_doctor);  // 设置按钮图片
 
-			holder.mTextView1.setText("什么医生\n什么职位\n什么职称\n");  // 设置文字
-			holder.mTextView2.setText("什么医生\n什么职位\n什么职称\n");  // 设置文字
-			holder.mTextView3.setText("什么医生\n什么职位\n什么职称\n");  // 设置文字
-			holder.mTextView4.setText("什么医生\n什么职位\n什么职称\n");  // 设置文字
+			holder.mTextView1.setText("什么医生\n什么职位\n什么职称");  // 设置文字
+			holder.mTextView2.setText("什么医生\n什么职位\n什么职称");  // 设置文字
+			holder.mTextView3.setText("什么医生\n什么职位\n什么职称");  // 设置文字
+			holder.mTextView4.setText("什么医生\n什么职位\n什么职称");  // 设置文字
 
 			// todo:
 			//      设置每个按钮的点击响应时间, 切换fragment, 显示医生详细信息
@@ -137,7 +137,7 @@ public class DoctorListFragment extends Fragment
 
 		@Override
 		public int getItemCount() {
-			/**
+			/*
 			 *
 			 *
 			 *
