@@ -15,6 +15,8 @@ import android.os.RemoteException;
 import com.yemiekai.vedio_voice.services.MyNetworkService;
 import com.yemiekai.vedio_voice.utils.datas.Doctor_p;
 
+import java.util.ArrayList;
+
 import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
 /**
@@ -108,10 +110,11 @@ public class MyNetworkUtils {
                     Bundle bundle = msg.getData();
                     bundle.setClassLoader(Doctor_p.class.getClassLoader());
 
-                    Doctor_p data = bundle.getParcelable("ppp");
+                    ArrayList<Doctor_p> doctorList = bundle.getParcelableArrayList("ppp");
                     String mmsg = bundle.getString("reply");
                     debug_print("receiver message from service:" + mmsg);
-                    debug_print("receiver message from service:" + data.name);
+                    debug_print("receiver message from service:" + doctorList.get(0).name);
+                    debug_print("receiver message from service:" + doctorList.get(1).name);
                     break;
                 default:
                     super.handleMessage(msg);

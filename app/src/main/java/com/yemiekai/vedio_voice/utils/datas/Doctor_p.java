@@ -5,6 +5,11 @@ import android.os.Parcelable;
 
 /**
  * 序列化的doctor对象
+ *
+ * 传递数组的方法：
+ * Bundle bundle = new Bundle();
+ * ArrayList<Doctor_p> doctorList = new ArrayList<>();
+ * bundle.putParcelableArrayList("ppp", doctorList);
  */
 public class Doctor_p implements Parcelable {
     public String name;        // 姓名  e.g. 曾康华

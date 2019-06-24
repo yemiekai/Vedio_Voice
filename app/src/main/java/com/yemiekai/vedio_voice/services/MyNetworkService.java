@@ -11,6 +11,8 @@ import android.os.RemoteException;
 
 import com.yemiekai.vedio_voice.utils.datas.Doctor_p;
 
+import java.util.ArrayList;
+
 import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
 
@@ -18,6 +20,8 @@ import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 //  https://blog.csdn.net/javazejian/article/details/52709857
 public class MyNetworkService extends Service {
     public static final int MSG_SAY_HELLO = 1;
+    public static final int MSG_GET_DOCTORS = 2;        // 从后端获取医生信息
+    public static final int MSG_GET_DOCTORS_REPLY = 3;  // 获取医生信息后, 回复信息
 
     public MyNetworkService() {
     }
@@ -28,20 +32,24 @@ public class MyNetworkService extends Service {
     class IncomingHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
+            debug_print("MyNetworkService receive msg, msg.what=" + msg.what);
+            Messenger client = msg.replyTo;  // 客户端的Messenger, 用于回复
+
             switch (msg.what) {
                 case MSG_SAY_HELLO:
-                    debug_print("Receive msg: " + msg.arg1);
-
-                    //回复客户端信息,该对象由客户端传递过来
-                    Messenger client=msg.replyTo;
-                    //获取回复信息的消息实体
                     Message replyMsg = Message.obtain(null, MyNetworkService.MSG_SAY_HELLO);
                     Bundle bundle = new Bundle();
                     bundle.setClassLoader(Doctor_p.class.getClassLoader());
 
-                    Doctor_p doctorP = new Doctor_p();
-                    doctorP.name = "yekai";
-                    bundle.putParcelable("ppp", doctorP);
+                    ArrayList<Doctor_p> doctorList = new ArrayList<>();
+                    Doctor_p doctorP1 = new Doctor_p();
+                    doctorP1.name = "yekai1";
+                    Doctor_p doctorP2 = new Doctor_p();
+                    doctorP2.name = "yekai2";
+                    doctorList.add(doctorP1);
+                    doctorList.add(doctorP2);
+
+                    bundle.putParcelableArrayList("ppp", doctorList);
                     bundle.putString("reply", "ok~,I had receiver message from you! ");
                     replyMsg.setData(bundle);
                     //向客户端发送消息
@@ -51,6 +59,11 @@ public class MyNetworkService extends Service {
                         e.printStackTrace();
                     }
 
+                    break;
+
+                case MSG_GET_DOCTORS:
+                    int category1 = msg.arg1;  // 科室索引1
+                    int category2 = msg.arg2;  // 科室索引2
                     break;
                 default:
                     super.handleMessage(msg);
