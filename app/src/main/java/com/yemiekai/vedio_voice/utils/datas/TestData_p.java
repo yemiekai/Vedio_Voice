@@ -17,7 +17,7 @@ public class TestData_p implements Parcelable {
         this.Gender = "123";
         this.Summary = "123";
         this.HP = HP;
-        this.Skill ="123";
+        this.Skill = "123";
     }
 
     public String getName() {
@@ -96,12 +96,11 @@ public class TestData_p implements Parcelable {
 
     private TestData_p(Parcel dest)
     {
-        Parcel par = dest.readParcelable(getClass().getClassLoader());
-        this.Name = par.readString();
-        this.Gender = par.readString();
-        this.Summary = par.readString();
-        this.HP = par.readInt();
-        this.Skill = par.readString();
+        this.Name = dest.readString();
+        this.Gender = dest.readString();
+        this.Summary = dest.readString();
+        this.HP = dest.readInt();
+        this.Skill = dest.readString();
     }
 
 }

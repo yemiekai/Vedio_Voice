@@ -35,13 +35,11 @@ public class MyNetworkService extends Service {
                     //回复客户端信息,该对象由客户端传递过来
                     Messenger client=msg.replyTo;
                     //获取回复信息的消息实体
-                    Message replyMsg=Message.obtain(null, MyNetworkService.MSG_SAY_HELLO);
-                    Bundle bundle=new Bundle();
+                    Message replyMsg = Message.obtain(null, MyNetworkService.MSG_SAY_HELLO);
+                    Bundle bundle = new Bundle();
                     bundle.setClassLoader(TestData_p.class.getClassLoader());
-                    TestData_p data = new TestData_p(123);
-//                    bundle.setClassLoader(getClass().getClassLoader());
-//                    bundle.putString("reply","ok~,I had receiver message from you! ");
-                    bundle.putParcelable("ppp", data);
+                    bundle.putParcelable("ppp", new TestData_p(123));
+                    bundle.putString("reply", "ok~,I had receiver message from you! ");
                     replyMsg.setData(bundle);
                     //向客户端发送消息
                     try {
