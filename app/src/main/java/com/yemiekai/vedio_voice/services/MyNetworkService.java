@@ -9,7 +9,7 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 
-import com.yemiekai.vedio_voice.utils.datas.TestData_p;
+import com.yemiekai.vedio_voice.utils.datas.Doctor_p;
 
 import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
@@ -37,8 +37,11 @@ public class MyNetworkService extends Service {
                     //获取回复信息的消息实体
                     Message replyMsg = Message.obtain(null, MyNetworkService.MSG_SAY_HELLO);
                     Bundle bundle = new Bundle();
-                    bundle.setClassLoader(TestData_p.class.getClassLoader());
-                    bundle.putParcelable("ppp", new TestData_p(123));
+                    bundle.setClassLoader(Doctor_p.class.getClassLoader());
+
+                    Doctor_p doctorP = new Doctor_p();
+                    doctorP.name = "yekai";
+                    bundle.putParcelable("ppp", doctorP);
                     bundle.putString("reply", "ok~,I had receiver message from you! ");
                     replyMsg.setData(bundle);
                     //向客户端发送消息

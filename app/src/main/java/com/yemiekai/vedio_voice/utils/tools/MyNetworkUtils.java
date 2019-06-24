@@ -13,7 +13,7 @@ import android.os.Messenger;
 import android.os.RemoteException;
 
 import com.yemiekai.vedio_voice.services.MyNetworkService;
-import com.yemiekai.vedio_voice.utils.datas.TestData_p;
+import com.yemiekai.vedio_voice.utils.datas.Doctor_p;
 
 import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
@@ -106,12 +106,12 @@ public class MyNetworkUtils {
                 //接收服务端回复
                 case MyNetworkService.MSG_SAY_HELLO:
                     Bundle bundle = msg.getData();
-                    bundle.setClassLoader(TestData_p.class.getClassLoader());
+                    bundle.setClassLoader(Doctor_p.class.getClassLoader());
 
-                    TestData_p data = bundle.getParcelable("ppp");
+                    Doctor_p data = bundle.getParcelable("ppp");
                     String mmsg = bundle.getString("reply");
                     debug_print("receiver message from service:" + mmsg);
-                    debug_print("receiver message from service:" + data.getHP());
+                    debug_print("receiver message from service:" + data.name);
                     break;
                 default:
                     super.handleMessage(msg);
