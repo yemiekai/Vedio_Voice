@@ -77,4 +77,5 @@ https://blog.csdn.net/Bettarwang/article/details/45315091
 第一次新建模拟器后, 启动没有问题。
 关掉模拟器或者重启电脑后, 再次启动, 模拟器一直黑屏, AndroidStudio显示waiting for target device to come online。   
 ![图片](https://github.com/yemiekai/Tests/tree/master/raw/dark_screen.png);  
-解决办法：冷启动设备
+解决办法, 冷启动设备：  
+打开AndroidStudio的虚拟管理器Android Virtual Device Manager, 找到要开启的设备, 在最右边Actions下拉框中选择`Cool Boot Now`.
