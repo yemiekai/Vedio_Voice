@@ -11,10 +11,10 @@ public class Doctor {
     private Bitmap image;       // 头像
     private String resume;      // 个人简历
     private String speciality;  // 专业特长
-    private WorkInformation workInformation;  // 出诊信息
+    private WorkInformation[] workInformation;  // 出诊信息
 
     public Doctor(String name, String sex, String[] position, String[] post, Bitmap image,
-                  String resume, String speciality, WorkInformation workInformation) {
+                  String resume, String speciality, WorkInformation[] workInformation) {
         this.name = name;
         this.sex = sex;
         this.position = position;
@@ -74,10 +74,10 @@ public class Doctor {
         this.speciality = speciality;
     }
 
-    public WorkInformation getWorkInformation() {
+    public WorkInformation[] getWorkInformation() {
         return this.workInformation;
     }
-    public void setWorkInformation(WorkInformation workInformation) {
+    public void setWorkInformation(WorkInformation[] workInformation) {
         this.workInformation = workInformation;
     }
 

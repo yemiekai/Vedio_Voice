@@ -26,7 +26,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.yemiekai.vedio_voice.services.MyNetworkService;
 import com.yemiekai.vedio_voice.utils.datas.MyRecyclerButton;
+import com.yemiekai.vedio_voice.utils.tools.MyNetworkUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,7 +50,8 @@ public class MainActivity extends BasicActivity {
 
     public final static int TIME_IMAGE_ZOOM_OUT          = 700;        // 切换图片时,图片淡出动画时长
 
-    Context context;
+    private Context context;
+    private MyNetworkUtils myNetworkUtils;
     private VideoView video;
     private ImageView image;
     private RecyclerView recyclerView;
@@ -61,20 +64,23 @@ public class MainActivity extends BasicActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        screenInformation(this);
+
         context = MainActivity.this;
+        myNetworkUtils = new MyNetworkUtils(MainActivity.this);
+        myNetworkUtils.startNetworkService();
+        myNetworkUtils.bindService();
+
+        setContentView(R.layout.activity_main);
 
         date = (TextView) findViewById(R.id.main_date);
         time = (TextView) findViewById(R.id.main_time);
-
         video = (VideoView) findViewById(R.id.main_video);
         image = (ImageView) findViewById(R.id.main_image);
 
         // 按钮栏
         recyclerView = (RecyclerView) findViewById(R.id.main_recycler);
-
 
         init_dateTime();   // 刷新时间日期
         init_video();  // 轮播视频
@@ -143,7 +149,6 @@ public class MainActivity extends BasicActivity {
                     default:
                         break;
                 }
-
             }
 
         };
@@ -164,8 +169,9 @@ public class MainActivity extends BasicActivity {
                         num = 0;
                     }
 
+                    // 暂停一下(展示时长)
                     try {
-                        Thread.sleep(7000);  // 暂停一下(展示时长)
+                        Thread.sleep(7000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -175,8 +181,9 @@ public class MainActivity extends BasicActivity {
                     msg_zoom_out.what = MSG_ZOOM_OUT_IMAGE;
                     handler.sendMessage(msg_zoom_out);
 
+                    // 暂停一下, 图片淡出
                     try {
-                        Thread.sleep(TIME_IMAGE_ZOOM_OUT);  // 暂停一下, 图片淡出
+                        Thread.sleep(TIME_IMAGE_ZOOM_OUT);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -192,7 +199,15 @@ public class MainActivity extends BasicActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // 添加按钮
-        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_tv), R.drawable.tv));
+        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_tv), R.drawable.tv, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /***
+                 * 暂时用这个按键测试一下services的功能
+                 */
+                myNetworkUtils.sayHello();
+            }
+        }));
         buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_video), R.drawable.video));
         buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_navigation), R.drawable.navigation));
         buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_doctor), R.drawable.doctor, new View.OnClickListener() {

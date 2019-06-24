@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.yemiekai.vedio_voice.services.MyNetworkService;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,6 +38,7 @@ public class WelcomeActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
+
 
         final VideoView vv = (VideoView) this.findViewById(R.id.welcome_video);
 
@@ -95,5 +98,6 @@ public class WelcomeActivity extends Activity {
 
         layout2.setBackgroundResource(R.drawable.welcome_image);  // 显示欢迎图片
     }
+
 
 }
