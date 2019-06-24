@@ -28,8 +28,9 @@ public class MyNetworkService extends Service {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_SAY_HELLO:
-                    debug_print("thanks,Service had receiver message from client!");
+                    debug_print("Receive msg: " + msg.arg1);
 
+                    /**
                     //回复客户端信息,该对象由客户端传递过来
                     Messenger client=msg.replyTo;
                     //获取回复信息的消息实体
@@ -43,7 +44,7 @@ public class MyNetworkService extends Service {
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-
+**/
                     break;
                 default:
                     super.handleMessage(msg);
@@ -81,7 +82,8 @@ public class MyNetworkService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         debug_print("MyNetworkService -- onStartCommand invoke");
-        return super.onStartCommand(intent, flags, startId);
+//        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;  // 比较高的优先级，在内存资源紧张时也不会被杀掉。
     }
 
     @Override

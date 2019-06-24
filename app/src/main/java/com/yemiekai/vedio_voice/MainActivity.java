@@ -68,9 +68,8 @@ public class MainActivity extends BasicActivity {
         screenInformation(this);
 
         context = MainActivity.this;
-        myNetworkUtils = new MyNetworkUtils(MainActivity.this);
+        myNetworkUtils = MyNetworkUtils.getInstance(MainActivity.this);
         myNetworkUtils.startNetworkService();
-        myNetworkUtils.bindService();
 
         setContentView(R.layout.activity_main);
 
@@ -205,7 +204,7 @@ public class MainActivity extends BasicActivity {
                 /***
                  * 暂时用这个按键测试一下services的功能
                  */
-                myNetworkUtils.sayHello();
+                myNetworkUtils.sayHello(123);
             }
         }));
         buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_video), R.drawable.video));

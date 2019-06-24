@@ -13,16 +13,26 @@ import android.os.RemoteException;
 import com.yemiekai.vedio_voice.services.MyNetworkService;
 import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
+/**
+ * 用单例模式
+ */
 public class MyNetworkUtils {
 
-    private Activity mActivity;
+    private static Activity mActivity;
     private Messenger mService = null;  // 与服务端交互的Messenger
     private ServiceConnection mConnection;  // 与服务端链接的对象
     private boolean mBound;  // 是否绑定了
 
-    // 构造函数
-    public MyNetworkUtils(Activity activity){
-        this.mActivity = activity;
+
+    private static MyNetworkUtils instance = new MyNetworkUtils();
+
+    public static MyNetworkUtils getInstance(Activity activity){
+        mActivity = activity;
+        return instance;
+    }
+
+    // 构造函数, 私有, 单例
+    private MyNetworkUtils(){
         this.mConnection = new ServiceConnection() {
             public void onServiceConnected(ComponentName className, IBinder service) {
                 /**
@@ -42,12 +52,17 @@ public class MyNetworkUtils {
         };
     }
 
+    public void setActivity(Activity activity){
+        this.mActivity = activity;
+    }
+
     /**
      * 启动服务
      */
     public void startNetworkService(){
         Intent intent = new Intent(mActivity, MyNetworkService.class);
         mActivity.startService(intent);
+        mActivity.bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
 
     /**
@@ -66,10 +81,10 @@ public class MyNetworkUtils {
         mActivity.unbindService(mConnection);
     }
 
-    public void sayHello() {
+    public void sayHello(int waitToSay) {
         if (!mBound) return;
         // 创建与服务交互的消息实体Message
-        Message msg = Message.obtain(null, MyNetworkService.MSG_SAY_HELLO, 0, 0);
+        Message msg = Message.obtain(null, MyNetworkService.MSG_SAY_HELLO, waitToSay, 0);
         try {
             //发送消息
             mService.send(msg);
