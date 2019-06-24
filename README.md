@@ -76,5 +76,5 @@ https://blog.csdn.net/Bettarwang/article/details/45315091
 ### 2. ADV模拟器黑屏问题
 第一次新建模拟器后, 启动没有问题。
 关掉模拟器或者重启电脑后, 再次启动, 模拟器一直黑屏, AndroidStudio显示waiting for target device to come online。 
-https://github.com/yemiekai/Tests/tree/master/raw/dark_screen.png
+![图片](https://github.com/yemiekai/Tests/tree/master/raw/dark_screen.png);
 解决办法：冷启动设备
