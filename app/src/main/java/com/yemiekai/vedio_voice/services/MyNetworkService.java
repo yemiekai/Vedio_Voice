@@ -9,6 +9,8 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 
+import com.yemiekai.vedio_voice.utils.datas.TestData_p;
+
 import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
 
@@ -30,13 +32,16 @@ public class MyNetworkService extends Service {
                 case MSG_SAY_HELLO:
                     debug_print("Receive msg: " + msg.arg1);
 
-                    /**
                     //回复客户端信息,该对象由客户端传递过来
                     Messenger client=msg.replyTo;
                     //获取回复信息的消息实体
                     Message replyMsg=Message.obtain(null, MyNetworkService.MSG_SAY_HELLO);
                     Bundle bundle=new Bundle();
-                    bundle.putString("reply","ok~,I had receiver message from you! ");
+                    bundle.setClassLoader(TestData_p.class.getClassLoader());
+                    TestData_p data = new TestData_p(123);
+//                    bundle.setClassLoader(getClass().getClassLoader());
+//                    bundle.putString("reply","ok~,I had receiver message from you! ");
+                    bundle.putParcelable("ppp", data);
                     replyMsg.setData(bundle);
                     //向客户端发送消息
                     try {
@@ -44,7 +49,7 @@ public class MyNetworkService extends Service {
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-**/
+
                     break;
                 default:
                     super.handleMessage(msg);

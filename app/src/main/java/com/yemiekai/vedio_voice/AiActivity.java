@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.yemiekai.vedio_voice.utils.tools.MyNetworkUtils;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -57,5 +59,7 @@ public class AiActivity extends BasicActivity {
                 startActivity(new Intent(AiActivity.this, VideoActivity.class));
             }
         });
+
+        MyNetworkUtils.getInstance(this).sayHello(595);
     }
 }

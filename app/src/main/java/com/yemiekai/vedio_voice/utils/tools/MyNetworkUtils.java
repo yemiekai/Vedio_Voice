@@ -5,25 +5,28 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 
 import com.yemiekai.vedio_voice.services.MyNetworkService;
+
 import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
 /**
  * 用单例模式
  */
 public class MyNetworkUtils {
-
+    private Messenger mRecevierReplyMsg= new Messenger(new ReceiverReplyMsgHandler());
     private static Activity mActivity;
     private Messenger mService = null;  // 与服务端交互的Messenger
     private ServiceConnection mConnection;  // 与服务端链接的对象
     private boolean mBound;  // 是否绑定了
 
-
+    // 单例
     private static MyNetworkUtils instance = new MyNetworkUtils();
 
     public static MyNetworkUtils getInstance(Activity activity){
@@ -85,6 +88,7 @@ public class MyNetworkUtils {
         if (!mBound) return;
         // 创建与服务交互的消息实体Message
         Message msg = Message.obtain(null, MyNetworkService.MSG_SAY_HELLO, waitToSay, 0);
+        msg.replyTo = mRecevierReplyMsg;
         try {
             //发送消息
             mService.send(msg);
@@ -92,4 +96,27 @@ public class MyNetworkUtils {
             e.printStackTrace();
         }
     }
+
+    private static class ReceiverReplyMsgHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                //接收服务端回复
+                case MyNetworkService.MSG_SAY_HELLO:
+                    Bundle bb = msg.getData();
+//                    String masg = bb.getString("reply");
+
+//                    bb.setClassLoader(getClass().getClassLoader());
+
+//                    TestData_p tp = msg.getData().getParcelable("p");
+                    debug_print("receiver message from service:" );
+//                    debug_print("receiver message from service:" + tp.CL_CVMLimit);
+                    break;
+                default:
+                    super.handleMessage(msg);
+            }
+        }
+    }
+
 }

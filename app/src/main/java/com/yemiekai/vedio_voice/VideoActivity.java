@@ -54,7 +54,6 @@ public class VideoActivity extends Activity {
         showCamera = new ShowCamera(this, cameraObject);
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(showCamera);
-
     }
 
     public void snapIt(View view){
