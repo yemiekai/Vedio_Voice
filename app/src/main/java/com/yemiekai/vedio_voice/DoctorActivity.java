@@ -24,7 +24,7 @@ import com.yemiekai.vedio_voice.fragments.DoctorListFragment;
  * https://blog.csdn.net/hzy670800844/article/details/62037033
  */
 
-public class DoctorActivity extends Activity {
+public class DoctorActivity extends BasicActivity {
     private ExpandableListView listView;  // 界面左边的科室列表
     private String[] mGroups = {"名医馆", "内科", "外科", "医技科室"};
     private String[][] mChilds = {

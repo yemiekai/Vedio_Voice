@@ -21,12 +21,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".IntroduceActivity"></activity>
+        <activity android:name=".DemandVideoActivity" />
+        <activity android:name=".LiveTVActivity" />
+        <activity android:name=".NavigationActivity" />
+        <activity android:name=".NotifyActivity" />
+
         <service
             android:name=".services.MyNetworkService"
             android:enabled="true"
             android:exported="true"
-            android:process=":remote">
-        </service>
+            android:process=":remote" />
 
         <activity
             android:name=".BasicActivity"
@@ -35,8 +40,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".VideoActivity"
             android:screenOrientation="landscape" />
@@ -46,7 +50,6 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

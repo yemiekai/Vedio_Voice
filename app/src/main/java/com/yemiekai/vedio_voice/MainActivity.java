@@ -82,9 +82,14 @@ public class MainActivity extends BasicActivity {
         recyclerView = (RecyclerView) findViewById(R.id.main_recycler);
 
         init_dateTime();   // 刷新时间日期
-        init_video();  // 轮播视频
         init_pictures();  // 轮播图片
         init_buttons();  // 可滚动显示的按钮
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        init_video();  // 轮播视频
     }
 
     // 刷新时间日期
@@ -205,10 +210,17 @@ public class MainActivity extends BasicActivity {
                  * 暂时用这个按键测试一下services的功能
                  */
                 myNetworkUtils.sayHello(123);
+
             }
         }));
         buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_video), R.drawable.video));
-        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_navigation), R.drawable.navigation));
+        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_navigation), R.drawable.navigation, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, NavigationActivity.class);
+                startActivity(intent);
+            }
+        }));
         buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_doctor), R.drawable.doctor, new View.OnClickListener() {
             @Override
             public void onClick(View view) {

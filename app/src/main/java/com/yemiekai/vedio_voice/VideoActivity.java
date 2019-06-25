@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 
 import com.yemiekai.vedio_voice.utils.views.ShowCamera;
 
-public class VideoActivity extends Activity {
+public class VideoActivity extends BasicActivity {
     private Camera cameraObject;
     private ShowCamera showCamera;
 

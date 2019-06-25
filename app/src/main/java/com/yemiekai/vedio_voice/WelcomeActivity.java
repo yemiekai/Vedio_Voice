@@ -20,7 +20,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class WelcomeActivity extends Activity {
+public class WelcomeActivity extends BasicActivity {
 
     private Activity context = null;
     private boolean bVideoComplete = false;
