@@ -206,14 +206,17 @@ public class MainActivity extends BasicActivity {
         buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_tv), R.drawable.tv, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /***
-                 * 暂时用这个按键测试一下services的功能
-                 */
-                myNetworkUtils.sayHello(123);
-
+                Intent intent = new Intent(context, LiveTVActivity.class);
+                startActivity(intent);
             }
         }));
-        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_video), R.drawable.video));
+        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_video), R.drawable.video, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DemandVideoActivity.class);
+                startActivity(intent);
+            }
+        }));
         buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_navigation), R.drawable.navigation, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -228,8 +231,25 @@ public class MainActivity extends BasicActivity {
                 startActivity(intent);
             }
         }));
-        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_service), R.drawable.service));
-        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_introduce), R.drawable.introduce));
+        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_service), R.drawable.service, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /***
+                 * todo
+                 * 暂时用这个按键测试一下services的功能
+                 */
+//                myNetworkUtils.sayHello(123);
+                myNetworkUtils.testHTTP();
+
+            }
+        }));
+        buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_introduce), R.drawable.introduce, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, IntroduceActivity.class);
+                startActivity(intent);
+            }
+        }));
         buttonList.add(new MyRecyclerButton(getString(R.string.main_bt_ai), R.drawable.ai, new View.OnClickListener() {
             @Override
             public void onClick(View view) {

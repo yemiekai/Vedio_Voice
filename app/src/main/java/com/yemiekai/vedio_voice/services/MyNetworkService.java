@@ -9,9 +9,16 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.yemiekai.vedio_voice.utils.datas.Doctor_gson;
 import com.yemiekai.vedio_voice.utils.datas.Doctor_p;
+import com.yemiekai.vedio_voice.utils.tools.HttpUtil;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
@@ -20,6 +27,7 @@ import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 //  https://blog.csdn.net/javazejian/article/details/52709857
 public class MyNetworkService extends Service {
     public static final int MSG_SAY_HELLO = 1;
+    public static final int MSG_SAY_HELLO2 = 12;
     public static final int MSG_GET_DOCTORS = 2;        // 从后端获取医生信息
     public static final int MSG_GET_DOCTORS_REPLY = 3;  // 获取医生信息后, 回复信息
 
@@ -27,7 +35,7 @@ public class MyNetworkService extends Service {
     }
 
     /**
-     * 用于接收从客户端传递过来的数据
+     * 接收客户端过来的消息
      */
     class IncomingHandler extends Handler {
         @Override
@@ -61,9 +69,20 @@ public class MyNetworkService extends Service {
 
                     break;
 
-                case MSG_GET_DOCTORS:
+                case MSG_SAY_HELLO2:
                     int category1 = msg.arg1;  // 科室索引1
                     int category2 = msg.arg2;  // 科室索引2
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            String resp = HttpUtil.executeGetMethod("http://112.74.186.129:7002/doctor/2", null);
+                            List<Doctor_gson> doct = new Gson().fromJson(resp, new TypeToken<List<Doctor_gson>>(){}.getType());
+                            debug_print(doct.toString());
+                        }
+                    }).start();
+
+
                     break;
                 default:
                     super.handleMessage(msg);

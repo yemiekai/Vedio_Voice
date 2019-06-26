@@ -18,11 +18,11 @@
 
     <FrameLayout
         android:id="@+id/camera_preview"
-        android:layout_width="600dp"
-        android:layout_height="400dp"
-        app:layout_constraintCircle="@+id/video_title"
-        app:layout_constraintCircleAngle="230"
-        app:layout_constraintCircleRadius="350dp" />
+        android:layout_width="800dp"
+        android:layout_height="600dp"
+        app:layout_constraintLeft_toLeftOf="@+id/video_title"
+        app:layout_constraintRight_toRightOf="@+id/video_title"
+        app:layout_constraintTop_toBottomOf="@+id/video_title" />
 
     <Button
         android:id="@+id/button_capture"

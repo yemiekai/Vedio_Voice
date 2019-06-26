@@ -6,4 +6,6 @@ public class StringUtils {
     public static void debug_print(String s){
         Log.d("yekai",s);
     }
+
 }
+

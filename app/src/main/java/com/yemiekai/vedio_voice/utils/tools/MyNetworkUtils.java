@@ -20,10 +20,13 @@ import java.util.ArrayList;
 import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
 /**
- * 用单例模式
+ * 用单例模式, 这个类只有1个实例.
+ *
+ * 这个类负责启动和绑定service, 通过Messenger与service通讯, 把这些封装成接口给被人调用
+ *
  */
 public class MyNetworkUtils {
-    private Messenger mRecevierReplyMsg= new Messenger(new ReceiverReplyMsgHandler());
+    private Messenger mRecevierReplyMsg= new Messenger(new ReceiverReplyMsgHandler());  // 用于接收
     private static Activity mActivity;
     private Messenger mService = null;  // 与服务端交互的Messenger
     private ServiceConnection mConnection;  // 与服务端链接的对象
@@ -32,6 +35,7 @@ public class MyNetworkUtils {
     // 单例
     private static MyNetworkUtils instance = new MyNetworkUtils();
 
+    // 获取单例
     public static MyNetworkUtils getInstance(Activity activity){
         mActivity = activity;
         return instance;
@@ -73,7 +77,7 @@ public class MyNetworkUtils {
 
     /**
      * 绑定服务
-     * 调用完这个函数要等一等, 没这么快绑定成功
+     * (调用完这个函数要等一等, 没这么快绑定成功)
      */
     public boolean bindService(){
         Intent intent = new Intent(mActivity, MyNetworkService.class);
@@ -87,19 +91,10 @@ public class MyNetworkUtils {
         mActivity.unbindService(mConnection);
     }
 
-    public void sayHello(int waitToSay) {
-        if (!mBound) return;
-        // 创建与服务交互的消息实体Message
-        Message msg = Message.obtain(null, MyNetworkService.MSG_SAY_HELLO, waitToSay, 0);
-        msg.replyTo = mRecevierReplyMsg;
-        try {
-            //发送消息
-            mService.send(msg);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
 
+    /**
+     * 接收service发来的消息
+     */
     private static class ReceiverReplyMsgHandler extends Handler {
 
         @Override
@@ -119,6 +114,37 @@ public class MyNetworkUtils {
                 default:
                     super.handleMessage(msg);
             }
+        }
+    }
+
+
+    public void sayHello(int waitToSay) {
+        if(!mBound){
+            return;
+        }
+        // 创建与服务交互的消息实体Message
+        Message msg = Message.obtain(null, MyNetworkService.MSG_SAY_HELLO, waitToSay, 0);
+        msg.replyTo = mRecevierReplyMsg;
+        try {
+            //发送消息
+            mService.send(msg);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testHTTP(){
+        if(!mBound) {
+            return;
+        }
+
+        Message msg = Message.obtain(null, MyNetworkService.MSG_SAY_HELLO2, 0, 0);
+        msg.replyTo = mRecevierReplyMsg;
+        try {
+            //发送消息
+            mService.send(msg);
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
     }
 
