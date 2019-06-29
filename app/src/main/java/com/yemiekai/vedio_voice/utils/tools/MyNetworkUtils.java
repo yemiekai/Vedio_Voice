@@ -22,7 +22,8 @@ import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 /**
  * 用单例模式, 这个类只有1个实例.
  *
- * 这个类负责启动和绑定service, 通过Messenger与service通讯, 把这些封装成接口给被人调用
+ * 这个类负责启动和绑定service, 通过Messenger与service通讯,
+ * 把需要用到的网络功能封装成接口给被人调用, 最后把结果返回给调用者
  *
  */
 public class MyNetworkUtils {
@@ -117,6 +118,7 @@ public class MyNetworkUtils {
         }
     }
 
+    /*********** 以下函数供外部调用 ************/
 
     public void sayHello(int waitToSay) {
         if(!mBound){

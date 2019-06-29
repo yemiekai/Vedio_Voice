@@ -63,7 +63,7 @@ public class BasicActivity extends Activity {
     }
 
     /**
-     * 自定义的广播接收器
+     * 自定义的广播接收器  （插播医院通知）
      *
      * 继承BasicActivity的所有Activity都能响应广播
      */

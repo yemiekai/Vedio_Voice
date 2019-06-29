@@ -2,7 +2,7 @@ package com.yemiekai.vedio_voice;
 import android.os.Bundle;
 
 /**
- * 用于显示“强制插播”画面, 用一个广播启动此活动：
+ * 用于插播医院通知, 用一个广播启动此活动：
  * Intent intent = new Intent();
  * intent.setAction(BasicActivity.ACTION_FORCE_NOTIFY);
  * sendBroadcast(intent);
