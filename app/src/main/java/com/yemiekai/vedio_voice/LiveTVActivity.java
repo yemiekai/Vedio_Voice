@@ -7,7 +7,7 @@ import android.os.Bundle;
 /**
  * 电视直播
  */
-public class LiveTVActivity extends AppCompatActivity {
+public class LiveTVActivity extends BasicActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

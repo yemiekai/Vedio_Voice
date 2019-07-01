@@ -38,7 +38,9 @@ public class MyNetworkUtils {
 
     // 获取单例
     public static MyNetworkUtils getInstance(Activity activity){
-        mActivity = activity;
+        if(activity != null) {
+            mActivity = activity;
+        }
         return instance;
     }
 
@@ -89,6 +91,10 @@ public class MyNetworkUtils {
      * 解除绑定服务
      */
     public void unbindService(){
+        if(!mBound) {
+            return;
+        }
+
         mActivity.unbindService(mConnection);
     }
 

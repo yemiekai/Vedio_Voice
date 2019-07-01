@@ -7,7 +7,7 @@ import android.os.Bundle;
 /**
  * 视频点播
  */
-public class DemandVideoActivity extends AppCompatActivity {
+public class DemandVideoActivity extends BasicActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -7,7 +7,7 @@ import android.os.Bundle;
 /**
  * 科室导航
  */
-public class NavigationActivity extends AppCompatActivity {
+public class NavigationActivity extends BasicActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

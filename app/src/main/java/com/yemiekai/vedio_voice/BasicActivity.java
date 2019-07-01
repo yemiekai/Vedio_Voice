@@ -8,10 +8,15 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
+import com.yemiekai.vedio_voice.utils.tools.AtyContainer;
 import com.yemiekai.vedio_voice.utils.tools.StringUtils;
 
 import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
+/**
+ * 本程序所有Activity都要继承这个, 用于统一管理
+ *
+ */
 public class BasicActivity extends Activity {
     public static final String ACTION_FORCE_NOTIFY = "com.yemiekai.vedio_voice.ACTION_NOTIFY";
 
@@ -20,6 +25,7 @@ public class BasicActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AtyContainer.getInstance().addActivity(this);  // 添加Activity到堆栈
         initMyBasicReceiver(myBasicReceiver);  // 初始化广播接收器
     }
 
@@ -77,7 +83,7 @@ public class BasicActivity extends Activity {
             switch (action){
 
                 case ACTION_FORCE_NOTIFY:  // 强制插播
-                    Intent intent1 = new Intent(context, DoctorActivity.class);
+                    Intent intent1 = new Intent(context, NotifyActivity.class);
                     startActivity(intent1);
                     break;
 
@@ -87,4 +93,8 @@ public class BasicActivity extends Activity {
         }
     };
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

@@ -7,7 +7,7 @@ import android.os.Bundle;
 /**
  * 医院介绍
  */
-public class IntroduceActivity extends AppCompatActivity {
+public class IntroduceActivity extends BasicActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

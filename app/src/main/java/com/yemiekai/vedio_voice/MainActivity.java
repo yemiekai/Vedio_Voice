@@ -69,7 +69,7 @@ public class MainActivity extends BasicActivity {
 
         context = MainActivity.this;
 
-        // 启动Service, 用于网络
+        // 启动Service, 用于网络通信
         myNetworkUtils = MyNetworkUtils.getInstance(MainActivity.this);
         myNetworkUtils.startNetworkService();
 

@@ -15,4 +15,9 @@ public class NotifyActivity extends BasicActivity {
         setContentView(R.layout.activity_notify);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        super.onDestroy();  // 播完就结束Activity
+    }
 }

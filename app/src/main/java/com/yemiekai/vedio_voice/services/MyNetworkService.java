@@ -26,6 +26,7 @@ import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 //  关于Android Service真正的完全详解，你需要知道的一切:
 //  https://blog.csdn.net/javazejian/article/details/52709857
 public class MyNetworkService extends Service {
+    public static final int MSG_STOP_SERVICE = 0;  // 关闭service
     public static final int MSG_SAY_HELLO = 1;
     public static final int MSG_SAY_HELLO2 = 12;
     public static final int MSG_GET_DOCTORS = 2;        // 从后端获取医生信息
@@ -44,6 +45,12 @@ public class MyNetworkService extends Service {
             Messenger client = msg.replyTo;  // 客户端的Messenger, 用于回复
 
             switch (msg.what) {
+                case MSG_STOP_SERVICE:
+                    // todo 销毁服务的问题貌似没解决
+                    debug_print("get stop service");
+                    onDestroy();
+                    break;
+
                 case MSG_SAY_HELLO:
                     Message replyMsg = Message.obtain(null, MyNetworkService.MSG_SAY_HELLO);
                     Bundle bundle = new Bundle();

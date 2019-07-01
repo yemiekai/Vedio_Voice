@@ -7,5 +7,9 @@ public class StringUtils {
         Log.d("yekai",s);
     }
 
+    public static void debug_print(int i){
+        Log.d("yekai",""+i);
+    }
+
 }
 

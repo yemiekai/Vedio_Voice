@@ -40,7 +40,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask"
+            />
         <activity
             android:name=".VideoActivity"
             android:screenOrientation="landscape" />
@@ -49,7 +51,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".WelcomeActivity"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
