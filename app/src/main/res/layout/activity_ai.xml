@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background1"
     tools:context=".AiActivity">
 
     <TextView
@@ -20,12 +21,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/ai_bn_voice"
+        android:id="@+id/ai_bn_face_match"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bn_selector5"
+        android:background="@drawable/bn_selector8"
         android:scaleType="centerInside"
-        android:text="@string/bt_voice"
+        android:text="@string/bt_face_match"
         android:textSize="100sp"
         android:textColor="@color/gray1"
         app:layout_constraintCircle="@+id/ai_title"
@@ -33,12 +34,12 @@
         app:layout_constraintCircleRadius="350dp"/>
 
     <Button
-        android:id="@+id/ai_bn_video"
+        android:id="@+id/ai_bn_face_entry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bn_selector5"
+        android:background="@drawable/bn_selector8"
         android:scaleType="centerInside"
-        android:text="@string/bt_video"
+        android:text="@string/bt_face_entry"
         android:textSize="100sp"
         android:textColor="@color/gray1"
         app:layout_constraintCircle="@+id/ai_title"

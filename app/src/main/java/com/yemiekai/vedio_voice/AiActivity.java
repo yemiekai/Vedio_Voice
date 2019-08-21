@@ -41,22 +41,23 @@ public class AiActivity extends BasicActivity {
             }
         },0,1000);
 
-        Button bn_voice = findViewById(R.id.ai_bn_voice);
-        Button bn_video = findViewById(R.id.ai_bn_video);
+        Button bn_face_match = findViewById(R.id.ai_bn_face_match);
+        Button bn_face_entry = findViewById(R.id.ai_bn_face_entry);
 
-        // 语音识别
-        bn_voice.setOnClickListener(new View.OnClickListener() {
+        // 匹配人脸
+        bn_face_match.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogPrompt(context,"语音识别","暂未开通");
+                DialogPrompt(context,"匹配人脸","暂未开通");
+//                startActivity(new Intent(AiActivity.this, VideoFaceActivity.class));
             }
         });
 
-        // 人证对比
-        bn_video.setOnClickListener(new View.OnClickListener() {
+        // 录入人脸
+        bn_face_entry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AiActivity.this, VideoActivity.class));
+                startActivity(new Intent(AiActivity.this, FaceEnterActivity.class));
             }
         });
 

@@ -45,26 +45,27 @@ public class WelcomeActivity extends BasicActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
 
-
-        final VideoView vv = (VideoView) this.findViewById(R.id.welcome_video);
-
-        final String uri_video = "android.resource://" + getPackageName() + "/" + R.raw.welcome_vedio2;
-        vv.setVideoURI(Uri.parse(uri_video));
-        vv.start();
-        vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.start();
-                mp.setLooping(false);
-            }
-        });
-        vv.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                bVideoComplete = true;
-                dispayWishPage();  // 视频播放完毕， 显示祝福页
-            }
-        });
+        // todo 调试. 不播放视频, 直接显示祝福页
+        bVideoComplete = true;
+        dispayWishPage();  // 视频播放完毕， 显示祝福页
+//        final VideoView vv = (VideoView) this.findViewById(R.id.welcome_video);
+//        final String uri_video = "android.resource://" + getPackageName() + "/" + R.raw.welcome_vedio2;
+//        vv.setVideoURI(Uri.parse(uri_video));
+//        vv.start();
+//        vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//            @Override
+//            public void onPrepared(MediaPlayer mp) {
+//                mp.start();
+//                mp.setLooping(false);
+//            }
+//        });
+//        vv.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            @Override
+//            public void onCompletion(MediaPlayer mp) {
+//                bVideoComplete = true;
+//                dispayWishPage();  // 视频播放完毕， 显示祝福页
+//            }
+//        });
     }
 
     @Override

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.yemiekai.vedio_voice.utils.views.AutoFitTextureView
+        android:id="@+id/texture"
+        android:layout_width="800dp"
+        android:layout_height="600dp"
+        android:layout_alignParentTop="true"/>
+</RelativeLayout>

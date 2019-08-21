@@ -44,7 +44,7 @@
             android:launchMode="singleTask"
             />
         <activity
-            android:name=".VideoActivity"
+            android:name=".FaceEnterActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".AiActivity"
@@ -61,6 +61,9 @@
         </activity>
         <activity
             android:name=".DoctorActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".VideoFaceActivity"
             android:screenOrientation="landscape" />
     </application>
 

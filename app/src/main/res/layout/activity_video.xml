@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideoActivity">
+    android:background="@drawable/background1"
+    tools:context=".FaceEnterActivity">
     <TextView
         android:id="@+id/video_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/text_video"
-        android:textSize="50sp"
+        android:textSize="45sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,6 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="snapIt"
+        android:textColor="@color/gray1"
+        android:background="@drawable/bn_selector8"
         android:text="@string/capture"
         app:layout_constraintLeft_toLeftOf="@+id/camera_preview"
         app:layout_constraintRight_toRightOf="@+id/camera_preview"
