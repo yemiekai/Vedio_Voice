@@ -85,8 +85,10 @@ https://blog.csdn.net/Bettarwang/article/details/45315091
 打开AndroidStudio的虚拟管理器Android Virtual Device Manager, 找到要开启的设备, 在最右边Actions下拉框中选择`Cool Boot Now`.  
   
 ## 参考：
-MTCNN: https://github.com/vcvycy/MTCNN4Android
-TensorflowLite:1.https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android  
-  2.https://github.com/tensorflow/examples/tree/master/lite/examples/object_detection/android    
+#### MTCNN:   
+https://github.com/vcvycy/MTCNN4Android
+#### TensorflowLite:  
+1.https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android  
+2.https://github.com/tensorflow/examples/tree/master/lite/examples/object_detection/android    
   
 
