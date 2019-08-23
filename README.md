@@ -6,6 +6,7 @@
 ## 待定问题：
 #### 1. APP界面没有适配其它dpi的屏幕，只在机顶盒电视机上可以正常显示  
 #### 2. 退出程序没有正确关闭Service  
+#### 3. 没有做实时人脸检测和对比。一是检测算法和对比算法还不够高效，二是camera preview不好做。目前是用MTCNN和MobileNetV3-InsightFace  
 
 ## 遇到的坑：
 ### 1. 发送Messenge时，用Bundle传递实现了Parcelable接口的数据, 运行程序出错
@@ -81,4 +82,13 @@ https://blog.csdn.net/Bettarwang/article/details/45315091
 关掉模拟器或者重启电脑后, 再次启动, 模拟器一直黑屏, AndroidStudio显示waiting for target device to come online。   
 ![图片](https://github.com/yemiekai/Tests/tree/master/raw/dark_screen.png);  
 解决办法, 冷启动设备：  
-打开AndroidStudio的虚拟管理器Android Virtual Device Manager, 找到要开启的设备, 在最右边Actions下拉框中选择`Cool Boot Now`.
+打开AndroidStudio的虚拟管理器Android Virtual Device Manager, 找到要开启的设备, 在最右边Actions下拉框中选择`Cool Boot Now`.  
+  
+## 参考：
+#### MTCNN:   
+https://github.com/vcvycy/MTCNN4Android
+#### TensorflowLite:  
+1.https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android  
+2.https://github.com/tensorflow/examples/tree/master/lite/examples/object_detection/android    
+  
+
