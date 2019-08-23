@@ -1,5 +1,6 @@
 package com.yemiekai.vedio_voice;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,13 +9,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.yemiekai.vedio_voice.tflite.FaceEmbedderMobileNetV3;
+import com.yemiekai.vedio_voice.tflite.InsightFace;
 import com.yemiekai.vedio_voice.utils.tools.MyNetworkUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
+
 public class AiActivity extends BasicActivity {
-    Context context;
+    Activity context;
     TextView time;
     Timer timeTimer;
 
@@ -22,8 +27,7 @@ public class AiActivity extends BasicActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ai);
-
-        context = AiActivity.this;
+        context = this;
         time = (TextView) findViewById(R.id.ai_time);
 
         timeTimer = new Timer();
@@ -48,6 +52,13 @@ public class AiActivity extends BasicActivity {
         bn_face_match.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                try {
+//                    FaceEmbedderMobileNetV3 faceEmbedder = new FaceEmbedderMobileNetV3(context, 2);
+//                    faceEmbedder.getFaceEmbedding(croppedBitmap);
+//                }catch (Exception e){
+//                    debug_print("e",e.toString());
+//                }
+
                 DialogPrompt(context,"匹配人脸","暂未开通");
 //                startActivity(new Intent(AiActivity.this, VideoFaceActivity.class));
             }

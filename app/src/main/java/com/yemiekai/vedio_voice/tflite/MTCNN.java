@@ -17,6 +17,7 @@ import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 
 import java.util.Vector;
 
+import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 import static java.lang.Math.min;
 import static java.lang.Math.max;
 
@@ -48,9 +49,9 @@ public class MTCNN {
         //AssetManager
         try {
             inferenceInterface = new TensorFlowInferenceInterface(assetManager, MODEL_FILE);
-            Log.d("Facenet","[*]load model success");
+            debug_print("d","load MTCNN model success ");
         }catch(Exception e){
-            Log.e("Facenet","[*]load model failed"+e);
+            debug_print("d","load MTCNN model failed " + e);
             return false;
         }
         return true;

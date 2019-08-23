@@ -1,6 +1,7 @@
 package com.yemiekai.vedio_voice;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -39,6 +40,7 @@ public class FaceEnterActivity extends BasicActivity {
     private ShowCamera showCamera;
     private FrameLayout preview;
     private Context mContext;
+    private Activity mActivity;
     private Bitmap face;
 
     MTCNN mtcnn;
@@ -67,6 +69,7 @@ public class FaceEnterActivity extends BasicActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
         mContext = this;
+        mActivity = this;
         mtcnn = new MTCNN(getAssets());
         preview = (FrameLayout) findViewById(R.id.camera_preview);
         bt_shoot = (Button) findViewById(R.id.button_capture);
@@ -109,10 +112,13 @@ public class FaceEnterActivity extends BasicActivity {
                     MTCNNUtils.drawRect(bitmapDetected, boxes.get(i).transform2Rect());  // 画矩形
                 }
 
-                Box faceBox = boxes.get(0);  // 只拿一个脸
+                // 只拿一个脸
+                Box faceBox = boxes.get(0);
                 face = Bitmap.createBitmap(bitmapOrigin, faceBox.left(), faceBox.top(), faceBox.width(), faceBox.height());
-                faceEnterDialog = new FaceEnterDialog(mContext, face);
-                sendMsgInner(DISPLAY_ENTRY_DIALOG);  // 显示对话框
+
+                // 显示对话框
+                faceEnterDialog = new FaceEnterDialog(mActivity, mContext, face);
+                sendMsgInner(DISPLAY_ENTRY_DIALOG);
 
             }catch (Exception e){
                 Toast.makeText(getApplicationContext(), "检测失败", Toast.LENGTH_SHORT).show();

@@ -23,7 +23,7 @@ public class FaceEmbedderMobileNetV3 extends FaceEmbedder {
      */
     public FaceEmbedderMobileNetV3(Activity activity, int numThreads) throws IOException {
         super(activity, numThreads);
-        embeddingArray = new float[1][getNumLabels()];
+        embeddingArray = new float[1][512];
     }
 
     @Override
@@ -51,7 +51,7 @@ public class FaceEmbedderMobileNetV3 extends FaceEmbedder {
         // you can download this file from
         // see build.gradle for where to obtain this file. It should be auto
         // downloaded into assets.
-        return "mobilenet_v1_1.0_224.tflite";
+        return "converted_model.tflite";
     }
 
 
@@ -70,5 +70,9 @@ public class FaceEmbedderMobileNetV3 extends FaceEmbedder {
     @Override
     protected void runInference() {
         tflite.run(imgData, embeddingArray);
+    }
+
+    public float[][] getEmbeddingArray(){
+        return embeddingArray;
     }
 }

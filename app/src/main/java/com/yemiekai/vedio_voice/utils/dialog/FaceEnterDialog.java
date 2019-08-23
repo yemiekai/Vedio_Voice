@@ -14,23 +14,32 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.yemiekai.vedio_voice.R;
+import com.yemiekai.vedio_voice.tflite.FaceEmbedderMobileNetV3;
+
+import java.util.Arrays;
+
+import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
 public class FaceEnterDialog extends Dialog {
     private Context mContext;
+    private Activity mActivity;
     private ImageView imageView;
     private EditText editText;
     private Button bt_cancel;
     private Button bt_confirm;
     private Bitmap bitmap;
+    private Bitmap face;
 
-    public FaceEnterDialog(Context context, Bitmap bm) {
-        this(context, R.style.dialog_custom);
+    public FaceEnterDialog(Activity activity, Context context, Bitmap bm) {
+        this(activity, context, R.style.dialog_custom);
         bitmap = bm;
+        face = Bitmap.createScaledBitmap(bm,224,224, true);
     }
 
-    private FaceEnterDialog(Context context, int theme) {
+    private FaceEnterDialog(Activity activity, Context context, int theme) {
         super(context, theme);
         mContext = context;
+        mActivity = activity;
     }
 
     @Override
@@ -55,7 +64,22 @@ public class FaceEnterDialog extends Dialog {
 
         // 显示人脸
         imageView.setImageBitmap(bitmap);
+        //                try {
+//                    FaceEmbedderMobileNetV3 faceEmbedder = new FaceEmbedderMobileNetV3(context, 2);
+//                    faceEmbedder.getFaceEmbedding(croppedBitmap);
+//                }catch (Exception e){
+//                    debug_print("e",e.toString());
+//                }
+        try {
+            FaceEmbedderMobileNetV3 faceEmbedder = new FaceEmbedderMobileNetV3(mActivity, 2);
+            faceEmbedder.getFaceEmbedding(face);
+            float[][] embdd = faceEmbedder.getEmbeddingArray();
+            debug_print("d","Embedding:\n"+ Arrays.toString(embdd[0]));
 
+        }catch (Exception e){
+            debug_print("e",e.toString());
+            e.printStackTrace();
+        }
 
         bt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override

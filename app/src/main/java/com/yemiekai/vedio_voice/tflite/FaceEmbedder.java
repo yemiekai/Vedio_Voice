@@ -60,7 +60,7 @@ public abstract class FaceEmbedder {
                 * getNumBytesPerChannel());
         imgData.order(ByteOrder.nativeOrder());
 
-        labels = loadLabelList(activity);
+//        labels = loadLabelList(activity);
     }
 
 
@@ -89,7 +89,7 @@ public abstract class FaceEmbedder {
     }
 
     /** Writes Image data into a {@code ByteBuffer}. */
-    private void convertBitmapToByteBuffer(Bitmap bitmap) {
+    private void  convertBitmapToByteBuffer(Bitmap bitmap) {
         if (imgData == null) {
             return;
         }
