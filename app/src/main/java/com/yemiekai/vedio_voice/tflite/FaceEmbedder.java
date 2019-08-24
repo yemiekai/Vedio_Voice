@@ -90,6 +90,12 @@ public abstract class FaceEmbedder {
 
     /** Writes Image data into a {@code ByteBuffer}. */
     private void  convertBitmapToByteBuffer(Bitmap bitmap) {
+        // 检查图像尺寸
+        if (bitmap.getWidth() != getImageSizeX() && bitmap.getHeight() != getImageSizeY()){
+            debug_print("e", "image size require: " + getImageSizeX() + ", but get:" +bitmap.getWidth());
+            return;
+        }
+
         if (imgData == null) {
             return;
         }

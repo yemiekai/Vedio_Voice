@@ -6,6 +6,8 @@ import java.io.IOException;
 
 public class FaceEmbedderMobileNetV3 extends FaceEmbedder {
 
+    private static final String MODEL_FILE  = "MobileNetV3_InsightFace.tflite";
+
     /** MobileNet requires additional normalization of the used input. */
     private static final float IMAGE_MEAN = 127.5f;
     private static final float IMAGE_STD = 127.5f;
@@ -51,7 +53,7 @@ public class FaceEmbedderMobileNetV3 extends FaceEmbedder {
         // you can download this file from
         // see build.gradle for where to obtain this file. It should be auto
         // downloaded into assets.
-        return "converted_model.tflite";
+        return MODEL_FILE;
     }
 
 
