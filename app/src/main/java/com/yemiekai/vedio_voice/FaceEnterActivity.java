@@ -32,6 +32,7 @@ import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
 public class FaceEnterActivity extends BasicActivity {
     public final static int DISPLAY_ENTRY_DIALOG             = 1000;  // 显示录入人脸对话框
+    public final static int DISPLAY_PLEASE_ENTER_NAME        = 1001;  // 显示"请输入姓名"
 
     private FaceEnterDialog faceEnterDialog;
     private FaceEmbedder faceEmbedder;
@@ -41,12 +42,12 @@ public class FaceEnterActivity extends BasicActivity {
     private FrameLayout preview;
     private Context mContext;
     private Activity mActivity;
-    private Bitmap face;
+    private Bitmap bitmap_face;
 
     MTCNN mtcnn;
 
 
-    final Handler mhandler = new Handler() {
+    final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what)
@@ -93,6 +94,7 @@ public class FaceEnterActivity extends BasicActivity {
         return object;
     }
 
+    // 点击了“拍摄”
     private Camera.PictureCallback capturedIt = new Camera.PictureCallback() {
 
         @Override
@@ -109,15 +111,16 @@ public class FaceEnterActivity extends BasicActivity {
             try {
                 Vector<Box> boxes = mtcnn.detectFaces(bitmapDetected,100);
                 for (int i=0;i<boxes.size();i++){
-                    MTCNNUtils.drawRect(bitmapDetected, boxes.get(i).transform2Rect());  // 画矩形
+                    // 画矩形, 框出人脸
+                    MTCNNUtils.drawRect(bitmapDetected, boxes.get(i).transform2Rect());
                 }
 
                 // 只拿一个脸
                 Box faceBox = boxes.get(0);
-                face = Bitmap.createBitmap(bitmapOrigin, faceBox.left(), faceBox.top(), faceBox.width(), faceBox.height());
+                bitmap_face = Bitmap.createBitmap(bitmapOrigin, faceBox.left(), faceBox.top(), faceBox.width(), faceBox.height());
 
-                // 显示对话框
-                faceEnterDialog = new FaceEnterDialog(mActivity, mContext, face);
+                // 显示对话框, 开始录入信息
+                faceEnterDialog = new FaceEnterDialog(mActivity, mContext, mHandler, bitmap_face);
                 sendMsgInner(DISPLAY_ENTRY_DIALOG);
 
             }catch (Exception e){
@@ -125,6 +128,7 @@ public class FaceEnterActivity extends BasicActivity {
                 return;
             }
 
+            // 展示有人脸框的图片, 并且停止视频
             preview.removeAllViews();
             preview.addView(new FacePictureView(mContext, bitmapDetected, 800, 600));
             cameraObject.release();
@@ -195,7 +199,7 @@ public class FaceEnterActivity extends BasicActivity {
     public void sendMsgInner(int what) {
         Message msg = new Message();
         msg.what = what;
-        mhandler.sendMessage(msg);
+        mHandler.sendMessage(msg);
     }
 
 }

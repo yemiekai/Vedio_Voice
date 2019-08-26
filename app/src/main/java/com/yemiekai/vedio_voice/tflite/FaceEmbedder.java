@@ -21,7 +21,7 @@ import java.util.List;
 import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 /**
  * 人脸特征器
- * 获取人脸特征
+ * 用.tflite获取人脸特征
  * */
 public abstract class FaceEmbedder {
 
@@ -90,6 +90,12 @@ public abstract class FaceEmbedder {
 
     /** Writes Image data into a {@code ByteBuffer}. */
     private void  convertBitmapToByteBuffer(Bitmap bitmap) {
+        // 检查图像尺寸
+        if (bitmap.getWidth() != getImageSizeX() && bitmap.getHeight() != getImageSizeY()){
+            debug_print("e", "image size require: " + getImageSizeX() + ", but get:" +bitmap.getWidth());
+            return;
+        }
+
         if (imgData == null) {
             return;
         }

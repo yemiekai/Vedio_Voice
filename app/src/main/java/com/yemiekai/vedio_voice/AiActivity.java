@@ -1,7 +1,6 @@
 package com.yemiekai.vedio_voice;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -9,10 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.yemiekai.vedio_voice.tflite.FaceEmbedderMobileNetV3;
 import com.yemiekai.vedio_voice.tflite.InsightFace;
+import com.yemiekai.vedio_voice.utils.datas.FaceDBDao;
+import com.yemiekai.vedio_voice.utils.datas.FaceInfo;
+import com.yemiekai.vedio_voice.utils.tools.ImageUtils;
 import com.yemiekai.vedio_voice.utils.tools.MyNetworkUtils;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -52,15 +54,17 @@ public class AiActivity extends BasicActivity {
         bn_face_match.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                try {
-//                    FaceEmbedderMobileNetV3 faceEmbedder = new FaceEmbedderMobileNetV3(context, 2);
-//                    faceEmbedder.getFaceEmbedding(croppedBitmap);
-//                }catch (Exception e){
-//                    debug_print("e",e.toString());
-//                }
+
+                // 测试
+                FaceDBDao faceDBDao = new FaceDBDao(context);
+                List<FaceInfo> faceInfos = faceDBDao.getAllDate();
+                for(int i=0; i < faceInfos.size(); i++){
+                    FaceInfo face = faceInfos.get(i);
+                    debug_print(face.toString());
+                    ImageUtils.saveBitmap(face.getFaceBitmap(), face.getName() + "-" + face.getIDnumber() + ".jpg");
+                }
 
                 DialogPrompt(context,"匹配人脸","暂未开通");
-//                startActivity(new Intent(AiActivity.this, VideoFaceActivity.class));
             }
         });
 
