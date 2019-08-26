@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/dialog_face_enter_img"
+        android:id="@+id/dialog_face_match_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -15,7 +15,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:orientation="horizontal">
@@ -27,17 +27,18 @@
             android:gravity="center"
             android:text="  名字:  "
             android:textColor="@color/Blue1"
-            android:textSize="20sp"/>
+            android:textSize="30sp"/>
 
 
-        <EditText
-            android:id="@+id/dialog_face_enter_name"
+        <TextView
+            android:id="@+id/dialog_face_match_name"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center"
-            android:textColor="#F88833"
-            android:textSize="20sp" />
+            android:textColor="#D55713"
+            android:textStyle="bold"
+            android:textSize="30sp" />
     </LinearLayout>
 
 
@@ -55,50 +56,31 @@
             android:gravity="center"
             android:text="身份证:"
             android:textColor="@color/Blue1"
-            android:textSize="20sp"/>
+            android:textSize="30sp"/>
 
-
-        <EditText
-            android:id="@+id/dialog_face_enter_id"
+        <TextView
+            android:id="@+id/dialog_face_match_id"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center"
-            android:textColor="#F88833"
-            android:textSize="20sp"
-            android:inputType="number"/>
+            android:textColor="#D55713"
+            android:textStyle="bold"
+            android:textSize="30sp"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginBottom="30dp"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/dialog_face_enter_cancel"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:text="@string/bn_cancel"
-            android:textColor="@color/gray1"
-            android:background="@drawable/bn_selector8"
-            android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/dialog_face_enter_confirm"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:text="@string/bn_confirm"
-            android:textColor="@color/gray1"
-            android:background="@drawable/bn_selector8"
-            android:textSize="20sp" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/dialog_face_match_confirm"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/bn_confirm"
+        android:textColor="@color/gray1"
+        android:background="@drawable/bn_selector8"
+        android:textSize="20sp" />
 
 
 </LinearLayout>

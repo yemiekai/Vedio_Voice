@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 
 import com.yemiekai.vedio_voice.utils.tools.ImageUtils;
 import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
+import java.lang.Math;
 
 import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
@@ -45,15 +46,23 @@ public class InsightFace {
 
     // 获取人脸特征
     public float[] getFaceEmebeding(Bitmap face){
+        long start = System.currentTimeMillis();
 
         float[] embedding = new float[512];
         float[] networkInput = ImageUtils.normalizeImage(face);
 
         inferenceInterface.feed(InName,networkInput,1,ImageSize,ImageSize,3);
         inferenceInterface.run(OutName,false);
-
         inferenceInterface.fetch(OutName[0], embedding);
+
+        long end = System.currentTimeMillis();
+        debug_print("d","InsightFace inference cost time : " + (end-start) + "ms");
         return embedding;
+    }
+
+    // 获取阈值
+    public static double getThreshold(){
+        return threshold;
     }
 
     // 向量点积
@@ -81,6 +90,11 @@ public class InsightFace {
         return Math.sqrt(Double.parseDouble(String.valueOf(summary)));
     }
 
+    // 计算两个向量的夹角
+    public static double cacualte_vector_angle(float[] v1, float[] v2){
+        double cosine = vector_dot_multiply(v1, v2) / (vector_norm(v1) * vector_norm(v2));
+        return Math.acos(cosine);
+    }
 
 
 }

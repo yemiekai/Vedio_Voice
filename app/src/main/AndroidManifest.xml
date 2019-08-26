@@ -47,6 +47,9 @@
             android:name=".FaceEnterActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".FaceMatchActivity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".AiActivity"
             android:screenOrientation="landscape" />
         <activity

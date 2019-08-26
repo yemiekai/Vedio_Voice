@@ -55,16 +55,16 @@ public class AiActivity extends BasicActivity {
             @Override
             public void onClick(View v) {
 
-                // 测试
-                FaceDBDao faceDBDao = new FaceDBDao(context);
-                List<FaceInfo> faceInfos = faceDBDao.getAllDate();
-                for(int i=0; i < faceInfos.size(); i++){
-                    FaceInfo face = faceInfos.get(i);
-                    debug_print(face.toString());
-                    ImageUtils.saveBitmap(face.getFaceBitmap(), face.getName() + "-" + face.getIDnumber() + ".jpg");
-                }
+//                // 测试
+//                FaceDBDao faceDBDao = new FaceDBDao(context);
+//                List<FaceInfo> faceInfos = faceDBDao.getAllDate();
+//                for(int i=0; i < faceInfos.size(); i++){
+//                    FaceInfo face = faceInfos.get(i);
+//                    debug_print(face.toString());
+//                    ImageUtils.saveBitmap(face.getFaceBitmap(), face.getName() + "-" + face.getIDnumber() + ".jpg");
+//                }
 
-                DialogPrompt(context,"匹配人脸","暂未开通");
+                startActivity(new Intent(AiActivity.this, FaceMatchActivity.class));
             }
         });
 

@@ -13,32 +13,33 @@ import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.yemiekai.vedio_voice.tflite.FaceEmbedder;
+import com.yemiekai.vedio_voice.tflite.MTCNN;
+import com.yemiekai.vedio_voice.utils.dialog.FaceMatchDialog;
+import com.yemiekai.vedio_voice.utils.tools.Box;
+import com.yemiekai.vedio_voice.utils.tools.MTCNNUtils;
+import com.yemiekai.vedio_voice.utils.views.FacePictureView;
+import com.yemiekai.vedio_voice.utils.views.ShowCamera;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Vector;
 
-import com.yemiekai.vedio_voice.tflite.FaceEmbedder;
-import com.yemiekai.vedio_voice.tflite.MTCNN;
-import com.yemiekai.vedio_voice.utils.dialog.FaceEnterDialog;
-import com.yemiekai.vedio_voice.utils.tools.Box;
-import com.yemiekai.vedio_voice.utils.tools.MTCNNUtils;
-import com.yemiekai.vedio_voice.utils.views.FacePictureView;
-import com.yemiekai.vedio_voice.utils.views.ShowCamera;
-
 import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
-public class FaceEnterActivity extends BasicActivity {
-    public final static int DISPLAY_ENTRY_DIALOG             = 1000;  // 显示录入人脸对话框
-    public final static int DISPLAY_PLEASE_ENTER_NAME        = 1001;  // 显示"请输入姓名"
+public class FaceMatchActivity extends BasicActivity {
+    public final static int DISPLAY_MATCH_DIALOG = 2000;  // 显示匹配人脸对话框
 
-    private FaceEnterDialog faceEnterDialog;
+    private FaceMatchDialog faceMatchDialog;
     private FaceEmbedder faceEmbedder;
     private Button bt_shoot;
     private Camera cameraObject;
     private ShowCamera showCamera;
+    private TextView tv_title;
     private FrameLayout preview;
     private Context mContext;
     private Activity mActivity;
@@ -46,16 +47,17 @@ public class FaceEnterActivity extends BasicActivity {
 
     MTCNN mtcnn;
 
+
     final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what)
             {
-                case DISPLAY_ENTRY_DIALOG://显示进度对话框
-                    if(faceEnterDialog != null){
-                        faceEnterDialog.dismiss();
+                case DISPLAY_MATCH_DIALOG://显示进度对话框
+                    if(faceMatchDialog != null){
+                        faceMatchDialog.dismiss();
                     }
-                    faceEnterDialog.show();
+                    faceMatchDialog.show();
                     break;
 
                 default:
@@ -73,7 +75,8 @@ public class FaceEnterActivity extends BasicActivity {
         mtcnn = new MTCNN(getAssets());
         preview = (FrameLayout) findViewById(R.id.camera_preview);
         bt_shoot = (Button) findViewById(R.id.button_capture);
-
+        tv_title = (TextView) findViewById(R.id.video_title);
+        tv_title.setText("人脸匹配");
         cameraObject = isCameraAvailiable();
 
         showCamera = new ShowCamera(this, cameraObject);
@@ -118,9 +121,9 @@ public class FaceEnterActivity extends BasicActivity {
                 Box faceBox = boxes.get(0);
                 bitmap_face = Bitmap.createBitmap(bitmapOrigin, faceBox.left(), faceBox.top(), faceBox.width(), faceBox.height());
 
-                // 显示对话框, 开始录入信息
-                faceEnterDialog = new FaceEnterDialog(mActivity, mContext, mHandler, bitmap_face);
-                sendMsgInner(DISPLAY_ENTRY_DIALOG);
+                // 显示对话框, 开始匹配
+                faceMatchDialog = new FaceMatchDialog(mActivity, mContext, mHandler, bitmap_face);
+                sendMsgInner(DISPLAY_MATCH_DIALOG);
 
             }catch (Exception e){
                 Toast.makeText(getApplicationContext(), "检测失败", Toast.LENGTH_SHORT).show();
@@ -131,7 +134,6 @@ public class FaceEnterActivity extends BasicActivity {
             preview.removeAllViews();
             preview.addView(new FacePictureView(mContext, bitmapDetected, 800, 600));
             cameraObject.release();
-
 
         }
     };

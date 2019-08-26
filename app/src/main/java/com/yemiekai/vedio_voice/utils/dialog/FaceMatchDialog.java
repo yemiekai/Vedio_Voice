@@ -13,25 +13,35 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yemiekai.vedio_voice.R;
 import com.yemiekai.vedio_voice.tflite.InsightFace;
+import com.yemiekai.vedio_voice.utils.datas.FaceCompare;
+import com.yemiekai.vedio_voice.utils.datas.FaceCompare.SortByAngle;
 import com.yemiekai.vedio_voice.utils.datas.FaceDBDao;
 import com.yemiekai.vedio_voice.utils.datas.FaceInfo;
+import com.yemiekai.vedio_voice.utils.tools.MathUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 
 import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
-public class FaceEnterDialog extends Dialog {
+public class FaceMatchDialog extends Dialog {
     private Context mContext;
     private Activity mActivity;
     private Handler mHandler;
     private ImageView imageView;
-    private EditText et_name;
-    private EditText et_IDnum;
-    private Button bt_cancel;
+    private TextView tv_name;
+    
+    private TextView tv_IDnum;
+    
     private Button bt_confirm;
     private Bitmap bitmap;
     private Bitmap croppedFace;
@@ -41,13 +51,13 @@ public class FaceEnterDialog extends Dialog {
     private FaceInfo faceInfo;
     private int check_count;
 
-    public FaceEnterDialog(Activity activity, Context context, Handler handler, Bitmap bm) {
+    public FaceMatchDialog(Activity activity, Context context, Handler handler, Bitmap bm) {
         this(activity, context, handler, R.style.dialog_custom);
         bitmap = bm;
         croppedFace = Bitmap.createScaledBitmap(bm,224,224, true);
     }
 
-    private FaceEnterDialog(Activity activity, Context context, Handler handler, int theme) {
+    private FaceMatchDialog(Activity activity, Context context, Handler handler, int theme) {
         super(context, theme);
         mContext = context;
         mActivity = activity;
@@ -61,7 +71,7 @@ public class FaceEnterDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.setContentView(R.layout.dialog_face_enter);
+        this.setContentView(R.layout.dialog_face_match);
         this.getWindow().getAttributes().gravity = Gravity.CENTER;
         this.setCancelable(false);
 
@@ -72,84 +82,84 @@ public class FaceEnterDialog extends Dialog {
         getWindow().setAttributes(lp);
 
         // 找到组件
-        imageView = (ImageView) this.findViewById(R.id.dialog_face_enter_img);
-        et_name = (EditText) this.findViewById(R.id.dialog_face_enter_name);
-        et_IDnum = (EditText) this.findViewById(R.id.dialog_face_enter_id);
-        bt_cancel = (Button) this.findViewById(R.id.dialog_face_enter_cancel);
-        bt_confirm = (Button) this.findViewById(R.id.dialog_face_enter_confirm);
+        imageView = (ImageView) this.findViewById(R.id.dialog_face_match_img);
+        tv_name = (TextView) this.findViewById(R.id.dialog_face_match_name);
+        tv_IDnum = (TextView) this.findViewById(R.id.dialog_face_match_id);
+        bt_confirm = (Button) this.findViewById(R.id.dialog_face_match_confirm);
 
         // 显示人脸
         imageView.setImageBitmap(bitmap);
+
+        Toast.makeText(mContext, "正在匹配人脸...", Toast.LENGTH_SHORT).show();
         try {
-            // 保存人脸(测试用)
-//            ImageUtils.saveBitmap(croppedFace, "yekai.png");
-
-//            // 用tflite文件读取神经网络并且得到512特征
-//            FaceEmbedderMobileNetV3 faceEmbedder = new FaceEmbedderMobileNetV3(mActivity, 2);
-//            faceEmbedder.getFaceEmbedding(croppedFace);
-//            float[][] embdd = faceEmbedder.getEmbeddingArray();
-//            debug_print("d","Embedding:\n"+ Arrays.toString(embdd[0]));
-
             // 用pb文件读取神经网络并且得到512特征
             InsightFace insight = new InsightFace(mActivity.getAssets());
             face_embedding = insight.getFaceEmebeding(croppedFace);
             debug_print("d","Face Embedding:\n"+ Arrays.toString(face_embedding));
-
         }catch (Exception e){
             debug_print("e",e.toString());
             e.printStackTrace();
         }
 
-        bt_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                check_count = 0;
-                dismiss();
-            }
-        });
 
         bt_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = et_name.getText().toString();
-                String IDnum = et_IDnum.getText().toString();
-
-                if(name.length()==0){
-                    Toast.makeText(mContext, "请输入姓名", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(IDnum.length()==0){
-                    Toast.makeText(mContext, "请输入身份证", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                faceInfo.setName(name);
-                faceInfo.setIDnumber(IDnum);
-                faceInfo.setFaceBitmap(croppedFace);
-                faceInfo.setEmbeddings(face_embedding);
-                faceInfo.convert_for_db();
-
-                // 检查是否存在数据库
-                if(faceDBDao.checkOne(IDnum)){
-                    if(check_count<2) {
-                        Toast.makeText(mContext, "身份证重复, 确认2次将覆盖 -- "+check_count, Toast.LENGTH_SHORT).show();
-                        check_count++;
-                    }else {
-                        faceDBDao.updateOrder(faceInfo);
-                        Toast.makeText(mContext, "身份证重复, 已覆盖", Toast.LENGTH_LONG).show();
-                        check_count = 0;
-                        dismiss();
-                    }
-                    return;
-                }else {
-                    faceDBDao.insertDate(faceInfo);
-                    Toast.makeText(mContext, "录入成功", Toast.LENGTH_SHORT).show();
-                }
+                tv_name.setText("");
+                tv_IDnum.setText("");
                 dismiss();
             }
         });
+
+        // 找到最接近的人脸
+        FaceCompare closelyFace = find_face(face_embedding);
+        if(closelyFace==null){
+            Toast.makeText(mContext, "没有匹配", Toast.LENGTH_LONG).show();
+        }else {
+            tv_name.setText(closelyFace.getName());
+            tv_IDnum.setText(closelyFace.getIDnumber());
+            Toast.makeText(mContext, "匹配成功", Toast.LENGTH_LONG).show();
+        }
+
     }
 
+    private FaceCompare find_face(float[] faceEmbedding){
+        if(faceEmbedding==null){
+            return null;
+        }
+
+        // 从数据库获取所有人脸
+        List<FaceInfo> faceDBList = faceDBDao.getAllDate();
+        if(faceDBList==null || faceDBList.size()==0){
+            return null;
+        }
+        for(FaceInfo face:faceDBList) {
+            debug_print(face.toString()); // Logcat看看数据库情况
+        }
+
+        // 逐个计算与faceEmbedding的夹角
+        ArrayList<FaceCompare> faceCompares = new ArrayList<>();
+        for(FaceInfo faceInfo:faceDBList){
+            double angle = Math.abs(InsightFace.cacualte_vector_angle(faceEmbedding, faceInfo.getEmbeddings()));
+            faceCompares.add(new FaceCompare(faceInfo.getName(), faceInfo.getIDnumber(), angle));
+        }
+
+        // 排序
+        Collections.sort(faceCompares, new SortByAngle());
+        for(FaceCompare face:faceCompares){
+            debug_print("d", face.toString()); // Logcat看看排序情况
+        }
+
+        // 获取最接近的脸
+        FaceCompare closelyFace = faceCompares.get(0);
+        debug_print(MathUtils.compareDoubles(closelyFace.getAngle(), InsightFace.getThreshold()));
+        if(MathUtils.compareDoubles(closelyFace.getAngle(), InsightFace.getThreshold()) == 1){
+            return null;  // 大于阈值, 不行
+        }else {
+            return closelyFace;
+        }
+
+    }
 //    @Override
 //    protected void (Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
