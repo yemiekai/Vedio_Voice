@@ -6,7 +6,7 @@
 ## 待定问题：
 #### 1. APP界面没有适配其它dpi的屏幕，只在机顶盒电视机上可以正常显示  
 #### 2. 退出程序没有正确关闭Service  
-#### 3. 没有做实时人脸检测和对比。一是检测算法和对比算法还不够高效，二是camera preview不好做。目前是用MTCNN和MobileNetV3-InsightFace  
+#### 3. 没有做实时人脸检测和对比。一是检测算法和对比算法还不够高效，二是camera preview不好做。目前是用MTCNN和MobileNetV3-InsightFace。实时检测的安卓代码可以参考[Demo](https://github.com/tensorflow/examples/tree/master/lite/examples/posenet/android)  
 
 ## 遇到的坑：
 ### 1. 发送Messenge时，用Bundle传递实现了Parcelable接口的数据, 运行程序出错
