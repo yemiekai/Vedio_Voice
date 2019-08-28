@@ -16,4 +16,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="按2次[返回] 结束视频"
+        android:textSize="15dp"
+
+        app:layout_constraintTop_toTopOf="@+id/welcome_video"
+        app:layout_constraintRight_toRightOf="@+id/welcome_video"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

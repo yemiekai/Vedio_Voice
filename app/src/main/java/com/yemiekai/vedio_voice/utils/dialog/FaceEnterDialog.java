@@ -15,12 +15,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.yemiekai.vedio_voice.R;
 import com.yemiekai.vedio_voice.tflite.InsightFace;
+import com.yemiekai.vedio_voice.utils.datas.Doctor_gson;
 import com.yemiekai.vedio_voice.utils.datas.FaceDBDao;
 import com.yemiekai.vedio_voice.utils.datas.FaceInfo;
+import com.yemiekai.vedio_voice.utils.tools.HttpUtil;
+
+import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
@@ -135,14 +142,16 @@ public class FaceEnterDialog extends Dialog {
                         Toast.makeText(mContext, "身份证重复, 确认2次将覆盖 -- "+check_count, Toast.LENGTH_SHORT).show();
                         check_count++;
                     }else {
-                        faceDBDao.updateOrder(faceInfo);
+                        sendFaceInfoServices(faceInfo); // 传到服务器
+                        faceDBDao.updateOrder(faceInfo);  // 保存到本地数据库
                         Toast.makeText(mContext, "身份证重复, 已覆盖", Toast.LENGTH_LONG).show();
                         check_count = 0;
                         dismiss();
                     }
                     return;
                 }else {
-                    faceDBDao.insertDate(faceInfo);
+                    sendFaceInfoServices(faceInfo); // 传到服务器
+                    faceDBDao.insertDate(faceInfo);  // 保存到本地数据库
                     Toast.makeText(mContext, "录入成功", Toast.LENGTH_SHORT).show();
                 }
                 dismiss();
@@ -150,6 +159,21 @@ public class FaceEnterDialog extends Dialog {
         });
     }
 
+    private void sendFaceInfoServices(FaceInfo faceInfo){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                JSONObject jsonObject = faceInfo.convert_to_JSON();
+                try {
+                    String resp = HttpUtil.executePostMethod("http://192.168.1.106:7001/android/ai/face/save", jsonObject);
+                }catch (Exception e){
+                    debug_print("e", e.toString());
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
 //    @Override
 //    protected void (Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);

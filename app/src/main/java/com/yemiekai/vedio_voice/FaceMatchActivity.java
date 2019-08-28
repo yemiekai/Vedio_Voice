@@ -82,6 +82,8 @@ public class FaceMatchActivity extends BasicActivity {
         showCamera = new ShowCamera(this, cameraObject);
         preview.removeAllViews();
         preview.addView(showCamera);
+
+
     }
 
 

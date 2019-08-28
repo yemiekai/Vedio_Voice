@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -90,7 +91,6 @@ public class DoctorListFragment extends Fragment
 				mButton2 = itemView.findViewById(R.id.layout_doctors_button2);
 				mButton3 = itemView.findViewById(R.id.layout_doctors_button3);
 				mButton4 = itemView.findViewById(R.id.layout_doctors_button4);
-				mButton1 = itemView.findViewById(R.id.layout_doctors_button1);
 				mTextView1 = itemView.findViewById(R.id.layout_doctors_text1);
 				mTextView2 = itemView.findViewById(R.id.layout_doctors_text2);
 				mTextView3 = itemView.findViewById(R.id.layout_doctors_text3);
@@ -131,8 +131,30 @@ public class DoctorListFragment extends Fragment
 			//      设置每个按钮的点击响应时间, 切换fragment, 显示医生详细信息
 			//      切换时要传入当前fragment的科室索引, 在客户按下"返回"按钮时要切换回现在的fragment
 			//      (因为切换了fragment后, 现在的fragment好像被destroy了)
-//			holder.mButton.setOnClickListener(buttonInfo.getClickListener());  // 设置按钮监听
-
+			holder.mButton1.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					Toast.makeText(getActivity(), "点击了" + (position*4 + 0), Toast.LENGTH_SHORT).show();
+				}
+			});
+			holder.mButton2.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					Toast.makeText(getActivity(), "点击了"  + (position*4 + 1), Toast.LENGTH_SHORT).show();
+				}
+			});
+			holder.mButton3.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					Toast.makeText(getActivity(), "点击了" +  (position*4 + 2), Toast.LENGTH_SHORT).show();
+				}
+			});
+			holder.mButton4.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					Toast.makeText(getActivity(), "点击了" + (position*4 + 3), Toast.LENGTH_SHORT).show();
+				}
+			});
 		}
 
 		@Override

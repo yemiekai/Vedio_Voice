@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
+import com.yemiekai.vedio_voice.utils.dialog.LoadingDialog;
 import com.yemiekai.vedio_voice.utils.tools.AtyContainer;
 import com.yemiekai.vedio_voice.utils.tools.StringUtils;
 
@@ -20,11 +21,15 @@ import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 public class BasicActivity extends Activity {
     public static final String ACTION_FORCE_NOTIFY = "com.yemiekai.vedio_voice.ACTION_NOTIFY";
 
+    private LoadingDialog loadingDialog;
+    boolean bShowingLoadDialog = false;
+
     MyBasicReceiver myBasicReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadingDialog = new LoadingDialog(this, R.style.MyDialogStyle);
         AtyContainer.getInstance().addActivity(this);  // 添加Activity到堆栈
         initMyBasicReceiver(myBasicReceiver);  // 初始化广播接收器
     }
@@ -46,6 +51,18 @@ public class BasicActivity extends Activity {
                 .setMessage(msg)
                 .setPositiveButton(R.string.bn_confirm, null)
                 .show();
+    }
+
+    public boolean showLoadingDialog(boolean isShow) {
+        if (isShow) {
+            bShowingLoadDialog = true;
+            loadingDialog.show();
+        } else {
+            bShowingLoadDialog = false;
+            loadingDialog.dismiss();
+        }
+
+        return bShowingLoadDialog;
     }
 
     /**

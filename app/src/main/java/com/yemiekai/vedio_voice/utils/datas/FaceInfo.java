@@ -6,7 +6,11 @@ import android.graphics.BitmapFactory;
 import com.google.gson.Gson;
 import com.yemiekai.vedio_voice.utils.tools.ImageUtils;
 
+import org.json.JSONObject;
+
 import java.util.Arrays;
+
+import static com.yemiekai.vedio_voice.utils.tools.StringUtils.debug_print;
 
 public class FaceInfo {
     private String name;  // 人名
@@ -14,6 +18,7 @@ public class FaceInfo {
     private Bitmap faceBitmap;  // 头像(人脸)
     private float[] embeddings;  // 人脸特征
 
+    // 用于与本地数据库交互
     private byte[] faceBitmap_db;  // 人脸(从Bitmap转换成byte数组, 方便存到数据库)
     private String embeddings_db;  // 人脸特征(从float数组转成String, 方便存到数据库)
     public FaceInfo(){
@@ -89,6 +94,25 @@ public class FaceInfo {
         this.faceBitmap = BitmapFactory.decodeByteArray(this.faceBitmap_db, 0, this.faceBitmap_db.length);
     }
 
+
+    // 获得JSON, 以便上传到后端
+    public JSONObject convert_to_JSON(){
+
+        JSONObject jsonParam = new JSONObject();
+        try {
+            jsonParam.put("name", name);
+            jsonParam.put("IDnumber", IDnumber);
+            jsonParam.put("faceBitmap", new Gson().toJson(
+                    BitmapFactory.decodeByteArray(this.faceBitmap_db, 0, this.faceBitmap_db.length)));
+            jsonParam.put("embeddings", new Gson().toJson(this.embeddings));
+
+            return jsonParam;
+        }catch (Exception e){
+            debug_print("e", e.toString());
+            e.printStackTrace();
+        }
+        return null;
+    }
     @Override
     public String toString() {
         return "FaceInfo{" +

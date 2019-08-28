@@ -22,6 +22,7 @@ import java.net.URL;
  */
 public class HttpUtil {
     public static String executeGetMethod(String path, String authorization) {
+        debug_print("i", "executeGetMethod: " + path);
         String response = "";
         try {
             URL url = new URL(path);
@@ -50,6 +51,7 @@ public class HttpUtil {
     }
 
     public static String executePostMethod(String path, JSONObject param) throws SocketTimeoutException {
+        debug_print("i", "executePostMethod: " + path);
         String paramStr = param.toString();
         String response = "";
         try {
